@@ -7,6 +7,7 @@ import java.sql.Timestamp;
  * 博客用户
  */
 public class User {
+    private String id;
     private String account;
     private String password;
     private Integer point;
@@ -17,12 +18,21 @@ public class User {
 
     }
 
-    public User(String account, String password, Integer point, String phoneNumber, Timestamp registerTime) {
+    public User(String id, String account, String password, Integer point, String phoneNumber, Timestamp registerTime) {
+        this.id = id;
         this.account = account;
         this.password = password;
         this.point = point;
         this.phoneNumber = phoneNumber;
         this.registerTime = registerTime;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getAccount() {
