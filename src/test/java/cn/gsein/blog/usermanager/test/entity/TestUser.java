@@ -14,7 +14,7 @@ public class TestUser {
 
     @Test
     public void testToString(){
-        User user = new User("zhangsan", "123456", 50, "13333333333", new Timestamp(new Date().getTime()));
+        User user = new User("123","zhangsan", "123456", 50, "13333333333", new Timestamp(new Date().getTime()));
         System.out.println(user);
     }
 }

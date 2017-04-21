@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!--suppress ALL -->
+<mapper namespace="cn.gsein.blog.usermanager.mapper.UserMapper">
+
+    <resultMap id="userMap" type="cn.gsein.blog.usermanager.entity.User">
+        <id column="id"/>
+        <result property="account" column="account"/>
+        <result property="password" column="password"/>
+        <result property="point" column="point"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="registerTime" column="register_time"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="cn.gsein.blog.usermanager.entity.User">
+        INSERT INTO user (id, account, password, point, phone_number, register_time)
+        VALUES (#{id}, #{account}, #{password}, #{point}, #{phoneNumber}, #{registerTime})
+    </insert>
+
+    <select id="queryCount" resultType="Integer">
+        SELECT COUNT(*) FROM user
+    </select>
+
+    <select id="queryAll" resultMap="userMap">
+        SELECT *
+        FROM user
+    </select>
+
+    <select id="queryAllByPageAndOrder" parameterType="cn.gsein.blog.base.entity.PageAndOrder" resultMap="userMap">
+        SELECT * FROM user
+        <if test="orderStatement!=''">
+            ORDER BY ${orderStatement}
+        </if>
+        LIMIT #{startIndex}, #{rowsPerPage}
+    </select>
+</mapper>

@@ -17,9 +17,9 @@ public class UserManagerServiceImpl implements UserManagerService {
     @Resource
     private UserMapper userMapper;
 
-    public List<User> findByPageAndOrder(String pageIndex, String orderField) {
+    public List<User> findByPageAndOrder(Integer rowsPerPage, String pageIndex, String orderField) {
         int pageIndexInt = new Integer(pageIndex);
-        PageAndOrder pao = new PageAndOrder((pageIndexInt-1)*10, 10, orderField);
+        PageAndOrder pao = new PageAndOrder((pageIndexInt-1)*rowsPerPage, rowsPerPage, orderField);
         return userMapper.queryAllByPageAndOrder(pao);
     }
 }
