@@ -11,6 +11,8 @@
         <result property="point" column="point"/>
         <result property="phoneNumber" column="phone_number"/>
         <result property="registerTime" column="register_time"/>
+        <result property="level" column="level" />
+        <result property="imageUrl" column="image_url" />
     </resultMap>
 
     <insert id="insert" parameterType="cn.gsein.blog.usermanager.entity.User">

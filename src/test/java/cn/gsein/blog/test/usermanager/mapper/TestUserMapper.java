@@ -1,14 +1,12 @@
-package cn.gsein.blog.usermanager.test.mapper;
+package cn.gsein.blog.test.usermanager.mapper;
 
 import cn.gsein.blog.base.entity.PageAndOrder;
+import cn.gsein.blog.test.base.BaseTest;
 import cn.gsein.blog.usermanager.entity.User;
 import cn.gsein.blog.usermanager.mapper.UserMapper;
-import cn.gsein.blog.usermanager.test.base.BaseTest;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,7 +25,8 @@ public class TestUserMapper extends BaseTest {
 
     @Test
     public void testInsert() {
-        User user = new User("125", "Jack Ma", "123456", 300, "13322423433", new Timestamp(new Date().getTime()));
+        User user = new User();
+        user.setId("188");
         userMapper.insert(user);
     }
 

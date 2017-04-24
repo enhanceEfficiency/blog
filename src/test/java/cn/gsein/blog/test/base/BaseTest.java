@@ -1,4 +1,4 @@
-package cn.gsein.blog.usermanager.test.base;
+package cn.gsein.blog.test.base;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

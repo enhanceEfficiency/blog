@@ -1,30 +1,70 @@
 package cn.gsein.blog.usermanager.entity;
 
+import cn.gsein.blog.articlemanager.entity.Article;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by G.Seinfeld on 2017/4/19.
- * 博客用户
+ * 博客用户实体类
  */
 public class User {
+    /**
+     * 主键，区分不同用户的唯一标识
+     */
     private String id;
+    /**
+     * 账号
+     */
     private String account;
+    /**
+     * 密码
+     */
     private String password;
+    /**
+     * 积分
+     */
     private Integer point;
+    /**
+     * 等级
+     */
+    private Integer level;
+    /**
+     * 头像的URL
+     */
+    private String imageUrl;
+    /**
+     * 手机号码
+     */
     private String phoneNumber;
+    /**
+     * 注册时间
+     */
     private Timestamp registerTime;
+    /**
+     * 发表的文章
+     */
+    private List<Article> articles;
 
     public User() {
 
     }
 
-    public User(String id, String account, String password, Integer point, String phoneNumber, Timestamp registerTime) {
-        this.id = id;
-        this.account = account;
-        this.password = password;
-        this.point = point;
-        this.phoneNumber = phoneNumber;
-        this.registerTime = registerTime;
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getId() {
@@ -73,6 +113,14 @@ public class User {
 
     public void setRegisterTime(Timestamp registerTime) {
         this.registerTime = registerTime;
+    }
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
     }
 
     @Override

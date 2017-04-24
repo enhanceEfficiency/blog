@@ -1,8 +1,8 @@
-package cn.gsein.blog.usermanager.test.service;
+package cn.gsein.blog.test.usermanager.service;
 
 import cn.gsein.blog.usermanager.entity.User;
 import cn.gsein.blog.usermanager.service.UserManagerService;
-import cn.gsein.blog.usermanager.test.base.BaseTest;
+import cn.gsein.blog.test.base.BaseTest;
 import org.junit.Before;
 import org.junit.Test;
 

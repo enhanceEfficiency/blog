@@ -1,11 +1,9 @@
-package cn.gsein.blog.usermanager.test.jdbc;
+package cn.gsein.blog.test.usermanager.jdbc;
 
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Connection;
