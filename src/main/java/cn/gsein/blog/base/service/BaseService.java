@@ -7,4 +7,5 @@ import java.util.List;
  */
 public interface BaseService<T> {
     List<T> findByPageAndOrder(Integer rowsPerPage, String pageIndex, String orderField);
+    Integer queryCount();
 }

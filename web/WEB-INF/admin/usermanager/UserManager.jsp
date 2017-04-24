@@ -45,7 +45,7 @@
     <form id="viewform" method="post" action="UserManager.do">
         <input id="rowsPerPage" name="rowsPerPage" type="hidden" value="10"/>
         <input id="orderField" name="orderField" type="hidden" value="${orderField}"/>
-        <input id="pageIndex" name="pageIndex" type="hidden" value="1"/>
+        <input id="pageIndex" name="pageIndex" type="hidden" value="${currentPage}"/>
         <table class="table" id="listview">
             <tr>
                 <th>用户名</th>
@@ -72,9 +72,9 @@
             <ul class="pagination">
                 <li class="previous"><a href="#fakelink" class="fui-arrow-left"></a></li>
                 <c:forEach begin="1" end="${pageNum}" step="1" var="i">
-                    <li class=""><a href="#fakelink">i</a></li>
+                    <li class="${currentPage==i?'active':''}"><a href="#fakelink">${i}</a></li>
                 </c:forEach>
-                <li class="next active"><a href="#fakelink" class="fui-arrow-right"></a></li>
+                <li class="next"><a href="#fakelink" class="fui-arrow-right"></a></li>
             </ul>
         </div>
     </form>

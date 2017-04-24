@@ -22,15 +22,22 @@ public class UserManagerController {
     @RequestMapping("toUserManager.do")
     public String toUserManager(HttpServletRequest request){
         List<User> users = userManagerService.findByPageAndOrder(10, "1", "");
+        Integer pageNum = (userManagerService.queryCount()-1)/10+1;
         request.setAttribute("users", users);
+        request.setAttribute("pageNum", pageNum);
+        request.setAttribute("currentPage", 1);
         return "admin/usermanager/UserManager";
     }
 
     @RequestMapping("UserManager.do")
     public String UserManager(Integer rowsPerPage, String pageIndex, String orderField, HttpServletRequest request){
         List<User> users = userManagerService.findByPageAndOrder(rowsPerPage, pageIndex, orderField);
+        Integer pageNum = (userManagerService.queryCount()-1)/rowsPerPage+1;
         request.setAttribute("users", users);
         request.setAttribute("orderField", orderField);
+        request.setAttribute("pageNum", pageNum);
+        request.setAttribute("currentPage", pageIndex);
+
         return "admin/usermanager/UserManager";
     }
 

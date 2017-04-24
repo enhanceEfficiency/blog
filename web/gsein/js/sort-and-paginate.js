@@ -1,6 +1,6 @@
 /**
  * Created by G.Seinfeld on 2017/4/20.
- * 实现排序和分页功能的ajax请求
+ * 实现排序和分页功能的请求
  */
 
 /**
@@ -48,5 +48,22 @@ $(document).ready(
             $("#orderField").val(orderValue);//将排序声明赋给隐藏输入框
             $("#viewform").submit();
         });
+
+        $(".pagination a").click(function () {
+            var page = $("#pageIndex").val();
+            var $li = $(this).parent();
+            if($li.hasClass("previous")){
+                page = (page-1>0?page-1:1);
+            } else if($li.hasClass("next")) {
+                var pageNum = $(".pagination li a").length-2;
+                page = (page+1>pageNum?pageNum:page+1);
+            } else{
+                page = $(this).html();
+            }
+            $("#pageIndex").val(page);
+            $("#viewform").submit();
+        });
+
+
     }
 );

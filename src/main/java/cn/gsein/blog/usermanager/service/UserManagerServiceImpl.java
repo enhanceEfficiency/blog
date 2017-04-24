@@ -22,4 +22,8 @@ public class UserManagerServiceImpl implements UserManagerService {
         PageAndOrder pao = new PageAndOrder((pageIndexInt-1)*rowsPerPage, rowsPerPage, orderField);
         return userMapper.queryAllByPageAndOrder(pao);
     }
+
+    public Integer queryCount() {
+        return userMapper.queryCount();
+    }
 }
