@@ -5,14 +5,17 @@
 <mapper namespace="cn.gsein.blog.usermanager.mapper.UserMapper">
 
     <resultMap id="userMap" type="cn.gsein.blog.usermanager.entity.User">
-        <id column="id"/>
-        <result property="account" column="account"/>
+        <id column="userId"/>
+        <result property="userAccount" column="user_account"/>
         <result property="password" column="password"/>
         <result property="point" column="point"/>
-        <result property="phoneNumber" column="phone_number"/>
-        <result property="registerTime" column="register_time"/>
+        <result property="mobileNumber" column="mobile_number"/>
+        <result property="registerDate" column="register_date"/>
         <result property="level" column="level" />
-        <result property="imageUrl" column="image_url" />
+        <result property="nickname" column="nickname" />
+        <result property="avatarUrl" column="avatar_url" />
+        <result property="authority" column="authority" />
+        <collection property="article" ofType="list" resultMap="cn.gsein.blog.test.mapper.ArticleMapper.BaseResultMap" />
     </resultMap>
 
     <insert id="insert" parameterType="cn.gsein.blog.usermanager.entity.User">

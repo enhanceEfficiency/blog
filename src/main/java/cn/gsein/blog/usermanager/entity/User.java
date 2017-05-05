@@ -10,14 +10,15 @@ import java.util.List;
  * 博客用户实体类
  */
 public class User {
+
     /**
      * 主键，区分不同用户的唯一标识
      */
-    private String id;
+    private String userId;
     /**
      * 账号
      */
-    private String account;
+    private String userAccount;
     /**
      * 密码
      */
@@ -33,54 +34,46 @@ public class User {
     /**
      * 头像的URL
      */
-    private String imageUrl;
+    private String avatarUrl;
     /**
      * 手机号码
      */
-    private String phoneNumber;
+    private String mobileNumber;
     /**
      * 注册时间
      */
-    private Timestamp registerTime;
+    private Timestamp registerDate;
+    /**
+     * 昵称
+     */
+    private String nickname;
     /**
      * 发表的文章
      */
     private List<Article> articles;
+    /**
+     * 权限
+     */
+    private String authority;
 
     public User() {
 
     }
 
-    public Integer getLevel() {
-        return level;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setLevel(Integer level) {
-        this.level = level;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getUserAccount() {
+        return userAccount;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount;
     }
 
     public String getPassword() {
@@ -99,20 +92,44 @@ public class User {
         this.point = point;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public Integer getLevel() {
+        return level;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
-    public Timestamp getRegisterTime() {
-        return registerTime;
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 
-    public void setRegisterTime(Timestamp registerTime) {
-        this.registerTime = registerTime;
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public Timestamp getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(Timestamp registerDate) {
+        this.registerDate = registerDate;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public List<Article> getArticles() {
@@ -123,14 +140,11 @@ public class User {
         this.articles = articles;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "account='" + account + '\'' +
-                ", password='" + password + '\'' +
-                ", point=" + point +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", registerTime=" + registerTime +
-                '}';
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 }
