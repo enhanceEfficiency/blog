@@ -23,10 +23,17 @@ public class TestUserMapper extends BaseTest {
         getContext().close();
     }
 
+    /**
+     * 测试插入用户
+     * 2017/05/09 测试通过 成功插入数据
+     */
     @Test
     public void testInsert() {
         User user = new User();
-        user.setId("188");
+        user.setUserId("188");
+        user.setUserAccount("lhing17");
+        user.setLevel(0);
+        user.setPoint(100);
         userMapper.insert(user);
     }
 

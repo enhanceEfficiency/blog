@@ -5,7 +5,7 @@
 <mapper namespace="cn.gsein.blog.usermanager.mapper.UserMapper">
 
     <resultMap id="userMap" type="cn.gsein.blog.usermanager.entity.User">
-        <id column="userId"/>
+        <id property="userId" column="user_id"/>
         <result property="userAccount" column="user_account"/>
         <result property="password" column="password"/>
         <result property="point" column="point"/>
@@ -15,12 +15,12 @@
         <result property="nickname" column="nickname" />
         <result property="avatarUrl" column="avatar_url" />
         <result property="authority" column="authority" />
-        <collection property="article" ofType="list" resultMap="cn.gsein.blog.test.mapper.ArticleMapper.BaseResultMap" />
+        <collection property="articles" ofType="cn.gsein.blog.articlemanager.entity.Article" column="user_id" select="cn.gsein.blog.articlemanager.mapper.ArticleMapper.queryByUserId"></collection>
     </resultMap>
 
     <insert id="insert" parameterType="cn.gsein.blog.usermanager.entity.User">
-        INSERT INTO user (id, account, password, point, phone_number, register_time)
-        VALUES (#{id}, #{account}, #{password}, #{point}, #{phoneNumber}, #{registerTime})
+        INSERT INTO user (user_id, user_account, password, authority, point, level, mobile_number, register_date, nickname, avatar_url)
+        VALUES (#{userId}, #{userAccount}, #{password},#{authority}, #{point}, #{level}, #{mobileNumber}, #{registerDate}, #{nickname}, #{avatarUrl})
     </insert>
 
     <select id="queryCount" resultType="Integer">
@@ -28,8 +28,11 @@
     </select>
 
     <select id="queryAll" resultMap="userMap">
-        SELECT *
-        FROM user
+        SELECT * FROM user
+    </select>
+
+    <select id="queryByPrimaryKey" parameterType="Integer" resultMap="userMap">
+        SELECT * FROM user where user_id = #{userId}
     </select>
 
     <select id="queryAllByPageAndOrder" parameterType="cn.gsein.blog.base.entity.PageAndOrder" resultMap="userMap">

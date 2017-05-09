@@ -18,43 +18,43 @@ public class User {
     /**
      * 账号
      */
-    private String userAccount;
+    protected String userAccount;
     /**
      * 密码
      */
-    private String password;
+    protected String password;
     /**
      * 积分
      */
-    private Integer point;
+    protected Integer point;
     /**
      * 等级
      */
-    private Integer level;
+    protected Integer level;
     /**
      * 头像的URL
      */
-    private String avatarUrl;
+    protected String avatarUrl;
     /**
      * 手机号码
      */
-    private String mobileNumber;
+    protected String mobileNumber;
     /**
      * 注册时间
      */
-    private Timestamp registerDate;
+    protected Timestamp registerDate;
     /**
      * 昵称
      */
-    private String nickname;
+    protected String nickname;
     /**
      * 发表的文章
      */
-    private List<Article> articles;
+    protected List<Article> articles;
     /**
      * 权限
      */
-    private String authority;
+    protected String authority;
 
     public User() {
 
@@ -146,5 +146,22 @@ public class User {
 
     public void setAuthority(String authority) {
         this.authority = authority;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", userAccount='" + userAccount + '\'' +
+                ", password='" + password + '\'' +
+                ", point=" + point +
+                ", level=" + level +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", mobileNumber='" + mobileNumber + '\'' +
+                ", registerDate=" + registerDate +
+                ", nickname='" + nickname + '\'' +
+                ", articles=" + articles +
+                ", authority='" + authority + '\'' +
+                '}';
     }
 }

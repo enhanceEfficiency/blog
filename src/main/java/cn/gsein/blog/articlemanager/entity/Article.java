@@ -81,4 +81,16 @@ public class Article {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "articleId='" + articleId + '\'' +
+               //", userId=" + user.getUserId() +
+                ", articleType=" + articleType +
+                ", title='" + title + '\'' +
+                ", publishTime=" + publishTime +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

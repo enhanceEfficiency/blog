@@ -1,4 +1,4 @@
-package cn.gsein.blog.test.usermanager.jdbc;
+package cn.gsein.blog.test.base.jdbc;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
@@ -10,7 +10,7 @@ import java.sql.Connection;
 
 /**
  * Created by G.Seinfeld on 2017/4/19.
- * Jdbc测试类
+ * Jdbc测试类，测试jdbc是否有效连接
  */
 public class TestJdbc {
     private DefaultSqlSessionFactory ssfb;
@@ -21,6 +21,9 @@ public class TestJdbc {
         ctx.close();
     }
 
+    /**
+     * 2017/05/09 测试通过 输出jdbc:mysql://localhost:3306/seinfeld?serverTimezone=UTC&characterEncoding=utf8&useSSL=true, UserName=root@, MySQL Connector Java
+     */
     @Test
     public void testMyBatisSqlSessionFactory(){
         try {

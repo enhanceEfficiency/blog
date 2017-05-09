@@ -59,11 +59,11 @@
             </tr>
             <c:forEach items="${users}" var="user">
                 <tr>
-                    <td>${user.account}</td>
+                    <td>${user.userAccount}</td>
                     <td>${user.password}</td>
-                    <td>${user.phoneNumber}</td>
+                    <td>${user.mobileNumber}</td>
                     <td>${user.point}</td>
-                    <td>${user.registerTime}</td>
+                    <td>${user.registerDate}</td>
                     <td>修改 删除</td>
                 </tr>
             </c:forEach>
