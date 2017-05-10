@@ -30,10 +30,40 @@
     <![endif]-->
 </head>
 <body>
-<div class="container">
+
+<div class="container-fluid">
+    <c:import url="LeftColumn.jsp"></c:import>
+    <%--<nav class="navbar navbar-default" role="navigation" >
+        &lt;%&ndash;<div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+            <a class="navbar-brand" href="#">Flat UI</a>
+        </div>&ndash;%&gt;
+        <div class="collapse navbar-collapse" id="navbar-collapse-01">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#fakelink">用户管理</a></li>
+                <li><a href="#fakelink">文章管理</a></li>
+                <li><a href="#fakelink">评论管理</a></li>
+                <li><a href="#fakelink">模板管理</a></li>
+                <li><a href="#fakelink">插件管理</a></li>
+                <li><a href="#fakelink">网站信息管理</a></li>
+            </ul>
+            &lt;%&ndash;<form class="navbar-form navbar-right" action="#" role="search">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                        <span class="input-group-btn">
+                          <button type="submit" class="btn"><span class="fui-search"></span></button>
+                        </span>
+                    </div>
+                </div>
+            </form>&ndash;%&gt;
+        </div><!-- /.navbar-collapse -->
+    </nav><!-- /navbar -->--%>
     <%--<h1>Hello, world!</h1>--%>
     <div class="input-group col-lg-5">
-        <input type="text" class="form-control" placeholder="请输入用户名" id="search-query-3" />
+        <input type="text" class="form-control" placeholder="请输入用户名" id="search-query-3"/>
         <span class="input-group-btn">
             <button type="submit" class="btn"><span class="fui-search"></span></button>
         </span>
@@ -54,7 +84,8 @@
                 <th>
                     <span class="orderable" orderColumn="point" orderType="">积分<span class="orderSign"></span></span>
                 </th>
-                <th><span class="orderable" orderColumn="register_time" orderType="">注册时间<span class="orderSign"></span></span></th>
+                <th><span class="orderable" orderColumn="register_time" orderType="">注册时间<span class="orderSign"></span></span>
+                </th>
                 <th>操作</th>
             </tr>
             <c:forEach items="${users}" var="user">
