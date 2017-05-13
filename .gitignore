@@ -9,3 +9,4 @@ gen
 
 /target/
 /generatorConfig.xml
+/src/main/resources/jdbc.properties
