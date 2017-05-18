@@ -1,0 +1,42 @@
+body {
+    background-color: #f5f5f5;
+}
+
+.small-font {
+    font-size: 12px;
+}
+
+.blue {
+    color: #0663a2;
+}
+
+.login-panel {
+    width: 360px;
+    padding: 15px 29px 5px 29px;
+    margin: 0 auto;
+}
+
+/*水平放置的组件*/
+.horizontal {
+    margin-left: 5px;
+}
+
+.login-heading {
+    height: 80px;
+    padding: 4px;
+}
+
+#messageBox {
+    margin: 10px auto;
+    width: 300px;
+    padding: 10px;
+}
+
+#loginError{
+    margin-bottom: 0;
+}
+
+.a-right{
+    float:right!important;
+    margin-right: 15px;
+}

@@ -26,4 +26,5 @@ public class UserManagerServiceImpl implements UserManagerService {
     public Integer queryCount() {
         return userMapper.queryCount();
     }
+
 }

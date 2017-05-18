@@ -37,20 +37,39 @@ public class TestUserMapper extends BaseTest {
         userMapper.insert(user);
     }
 
+
     @Test
     public void testQueryAll() {
         List<User> users = userMapper.queryAll();
-        for (User user: users){
+        for (User user : users) {
             System.out.println(user);
         }
     }
 
     @Test
-    public void testQueryAllByPageAndOrder(){
-        List<User> users = userMapper.queryAllByPageAndOrder(new PageAndOrder(0, 5, "point desc" ));
-        for (User user: users){
+    public void testQueryAllByPageAndOrder() {
+        List<User> users = userMapper.queryAllByPageAndOrder(new PageAndOrder(0, 5, "point desc"));
+        for (User user : users) {
             System.out.println(user);
         }
     }
 
+    /**
+     * 测试按用户账号查询
+     * 2017/05/18 测试通过 查询成功+查询失败
+     */
+    @Test
+    public void testQueryByUserAccount() {
+        /*
+        查询成功
+         */
+        User user = userMapper.queryByUserAccount("lhing17");
+        System.out.println(user);
+
+        /*
+        查询失败
+         */
+        user = userMapper.queryByUserAccount("lhing18");
+        System.out.println(user);
+    }
 }
