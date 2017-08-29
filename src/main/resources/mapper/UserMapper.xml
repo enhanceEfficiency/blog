@@ -2,48 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <!--suppress ALL -->
-<mapper namespace="cn.gsein.blog.usermanager.mapper.UserMapper">
-
-    <resultMap id="userMap" type="cn.gsein.blog.usermanager.entity.User">
-        <id property="userId" column="user_id"/>
-        <result property="userAccount" column="user_account"/>
-        <result property="password" column="password"/>
-        <result property="point" column="point"/>
-        <result property="mobileNumber" column="mobile_number"/>
-        <result property="registerDate" column="register_date"/>
-        <result property="level" column="level" />
-        <result property="nickname" column="nickname" />
-        <result property="avatarUrl" column="avatar_url" />
-        <result property="authority" column="authority" />
-        <collection property="articles" ofType="cn.gsein.blog.articlemanager.entity.Article" column="user_id" select="cn.gsein.blog.articlemanager.mapper.ArticleMapper.queryByUserId"></collection>
-    </resultMap>
-
-    <insert id="insert" parameterType="cn.gsein.blog.usermanager.entity.User">
-        INSERT INTO user (user_id, user_account, password, authority, point, level, mobile_number, register_date, nickname, avatar_url)
-        VALUES (#{userId}, #{userAccount}, #{password},#{authority}, #{point}, #{level}, #{mobileNumber}, #{registerDate}, #{nickname}, #{avatarUrl})
+<mapper namespace="cn.gsein.blog.front.mapper.UserMapper">
+    <insert id="save" parameterType="user">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        INSERT INTO blog_user (id, username, password, avatar_url, status)
+        VALUES (#{id}, #{username}, #{password}, #{avatarUrl}, '0')
     </insert>
 
-    <select id="queryCount" resultType="Integer">
-        SELECT COUNT(*) FROM user
+    <update id="delete" parameterType="user">
+        update blog_user set status='1' where id=#{id} and status='0'
+    </update>
+
+    <update id="deleteById" parameterType="string">
+        update blog_user set status='1' where id=#{id} and status='0'
+    </update>
+
+    <update id="update" parameterType="user">
+        update blog_user set username=#{username}, password=#{password}, avatar_url=#{avatarUrl}, last_update_time=CURRENT_TIMESTAMP where id=#{id} and status='0'
+    </update>
+
+    <select id="findById" parameterType="string" resultType="user">
+        select id, username, password, avatar_url, create_time, last_update_time, status from blog_user where id=#{id} and status='0';
     </select>
 
-    <select id="queryAll" resultMap="userMap">
-        SELECT * FROM user
+    <select id="findAll" resultType="user">
+        select id, username, password, avatar_url, create_time, last_update_time, status from blog_user where status='0';
     </select>
 
-    <select id="queryByPrimaryKey" parameterType="Integer" resultMap="userMap">
-        SELECT * FROM user where user_id = #{userId}
-    </select>
-
-    <select id="queryByUserAccount" parameterType="string" resultMap="userMap">
-        SELECT * FROM user where user_account = #{userAccount}
-    </select>
-
-    <select id="queryAllByPageAndOrder" parameterType="cn.gsein.blog.base.entity.PageAndOrder" resultMap="userMap">
-        SELECT * FROM user
-        <if test="orderStatement!=''">
-            ORDER BY ${orderStatement}
-        </if>
-        LIMIT #{startIndex}, #{rowsPerPage}
+    <select id="findTotalCount" resultType="integer">
+        select count(*) from blog_user where status='0';
     </select>
 </mapper>
