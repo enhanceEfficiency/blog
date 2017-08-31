@@ -5,13 +5,15 @@
 <mapper namespace="cn.gsein.blog.front.mapper.ArticleMapper">
     <resultMap id="articleMap" type="article">
         <id property="id" column="id"/>
-        <result property="readAmount" column="read_amount"/>
+        <result property="views" column="views"/>
         <result property="title" column="title"/>
+        <result property="digest" column="digest" />
         <result property="content" column="content"/>
         <result property="publishTime" column="publish_time"/>
         <result property="createTime" column="create_time"/>
         <result property="lastUpdateTime" column="last_update_time"/>
         <result property="status" column="status"/>
+        <result property="pictureUrl" column="picture_url" />
         <association property="author" javaType="user">
             <id property="id" column="id"/>
             <result property="username" column="username"/>
@@ -21,19 +23,19 @@
             <result property="lastUpdateTime" column="last_update_time"/>
             <result property="status" column="status"/>
         </association>
-        <association property="tag" javaType="tag">
-
-        </association>
         <association property="category" javaType="category">
 
         </association>
+        <collection property="tags" javaType="tag">
+
+        </collection>
     </resultMap>
     <insert id="save" parameterType="article">
         <selectKey keyProperty="id" resultType="String" order="BEFORE">
             select replace(uuid(),'-','') from dual
         </selectKey>
-        INSERT INTO blog_article (id, tag_id, category_id, read_amount, title, content, user_id, status)
-        VALUES (#{id}, #{tag.id}, #{category.id}, #{readAmount}, #{title}, #{content}, #{author.id}, '0')
+        INSERT INTO blog_article (id, tag_id, category_id, views, title, content, user_id, status, picture_url, digest)
+        VALUES (#{id}, #{tag.id}, #{category.id}, #{views}, #{title}, #{content}, #{author.id}, '0', #{pictureUrl}, #{digest})
     </insert>
 
     <update id="delete" parameterType="article">
@@ -46,14 +48,16 @@
 
     <update id="update" parameterType="article">
         update blog_article
-        set read_amount=#{readAmount},
+        set views=#{views},
         title=#{title},
         content=#{content},
         publish_time=#{publishTime},
         last_update_time=CURRENT_TIMESTAMP,
         tag_id=#{tag.id},
         category_id=#{category.id},
-        user_id=#{author.id}
+        user_id=#{author.id},
+        picture_url=#{pictureUrl},
+        digest=#{digest}
         where id=#{id} and status='0'
     </update>
 

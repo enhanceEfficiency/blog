@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by G.Seinfeld on 2017/8/29.
@@ -18,11 +19,13 @@ import java.sql.Timestamp;
 @Alias("article")
 public class Article{
     private String id;
-    private Tag tag;
+    private List<Tag> tags;
     private Category category;
-    private Integer readAmount; //阅读量
+    private Integer views; //浏览量
     private String title;
+    private String digest; //摘要
     private String content;
+    private String pictureUrl; //文章图片的地址
     private Timestamp publishTime;
     private User author;
     private Timestamp createTime;

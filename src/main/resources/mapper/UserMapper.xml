@@ -34,4 +34,8 @@
     <select id="findTotalCount" resultType="integer">
         select count(*) from blog_user where status='0';
     </select>
+
+    <select id="findByUsername" parameterType="string" resultType="user">
+        select id, username, password, avatar_url, create_time, last_update_time, status from blog_user where username=#{username} and status='0';
+    </select>
 </mapper>

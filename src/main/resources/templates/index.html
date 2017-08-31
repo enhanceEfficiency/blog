@@ -1,36 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Gsein的个人博客</title>
-    <link rel="stylesheet" type="text/css" href="css/gsein_index.css"/>
+    <link rel="stylesheet" type="text/css" href="css/gsein_common.css"/>
 </head>
 <body>
 <div id="wrapper">
-    <div class="header">
-        <h1 class="blog_name">BLACK & WHITE</h1>
-    </div>
+    <div th:replace="header::header"></div>
     <div class="main">
-        <div class="blog_info">
+        <div th:each="article : ${articles}" class="blog_info">
             <div class="info_bar">
                 <span class="blog_tag">值得看一千次的图片</span>
-                <span class="time">2017/8/28 16:22</span>
-                <span class="read_amount">112次</span>
+                <span th:text="${article.publishTime}" class="time">2017/8/28 16:22</span>
+                <span th:text="${article.views}+次" class="views">112次</span>
             </div>
             <div class="digest">
-                <h2 class="blog_title">值得看一千次的图片</h2>
-                <div class="picture"><img src="images/timg.jpg"></div>
-                <div class="blog_content">
-                    <p class="dark">图片分为背景图片和通过img标签引入的图片，前者可以通过media query自动的切换不同分辨率的版本，</p>
-                    <p class="shallow">但是在不支持background images
+                <a th:href="|/article/${article.id}|" href="#"><h2 th:text="${article.title}">值得看一千次的图片</h2></a>
+                <div class="picture"><img th:src="${article.pictureUrl}" src="images/timg.jpg"></div>
+                <div class="digest_content">
+                    <p th:text="${article.digest}" class="shallow">图片分为背景图片和通过img标签引入的图片，前者可以通过media
+                        query自动的切换不同分辨率的版本，</p>
+                    <!--<p class="shallow">但是在不支持background images
                         size的浏览器中背景图片无法无级的调整大小（也就是在media
-                        query切换css的点上可以换一张不同分辨率的图，但是没法儿获得两张分辨率中间大小的版本），而且在很多情况下（比如cms中）并不适合用背景图片。</p>
+                        query切换css的点上可以换一张不同分辨率的图，但是没法儿获得两张分辨率中间大小的版本），而且在很多情况下（比如cms中）并不适合用背景图片。</p>-->
                 </div>
             </div>
             <div class="author_info">
                 <h3 class="author">作者</h3>
-                <div class="author_name">贼卡拉</div>
-                <img class="author_avatar" src="images/avatar.jpg">
+                <div th:text="${article.author.username}" class="author_name">贼卡拉</div>
+                <img th:src="${article.author.avatarUrl}" class="author_avatar" src="images/avatar.jpg">
                 <div class="blog_share">
                     <div class="weibo"></div>
                     <div class="qq"></div>
@@ -39,34 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="blog_info">
-            <div class="info_bar">
-                <span class="blog_tag">值得看一千次的图片</span>
-                <span class="time">2017/8/28 16:22</span>
-                <span class="read_amount">112次</span>
-            </div>
-            <div class="digest">
-                <h2 class="blog_title">值得看一千次的图片</h2>
-                <div class="picture"><img src="images/timg.jpg"></div>
-                <div class="blog_content">
-                    <p class="dark">图片分为背景图片和通过img标签引入的图片，前者可以通过media query自动的切换不同分辨率的版本，</p>
-                    <p class="shallow">但是在不支持background images
-                        size的浏览器中背景图片无法无级的调整大小（也就是在media
-                        query切换css的点上可以换一张不同分辨率的图，但是没法儿获得两张分辨率中间大小的版本），而且在很多情况下（比如cms中）并不适合用背景图片。</p>
-                </div>
-            </div>
-            <div class="author_info">
-                <h3 class="author">作者</h3>
-                <div class="author_name">贼卡拉</div>
-                <img class="author_avatar" src="images/avatar.jpg">
-                <div class="blog_share">
-                    <div class="weibo"></div>
-                    <div class="qq"></div>
-                    <div class="qzone"></div>
-                    <div class="friend_circle"></div>
-                </div>
-            </div>
-        </div>
+
     </div>
     <div class="aside">
         <div class="categories aside_panel">
@@ -87,9 +59,7 @@
             <div>2017 (16)</div>
         </div>
     </div>
-    <div class="footer">
-        <h1 class="blog_name_white">BLACK & WHITE</h1>
-    </div>
+    <div th:replace="footer::footer"></div>
 </div>
 </body>
 </html>

@@ -4,6 +4,7 @@ import cn.gsein.blog.front.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -15,6 +16,7 @@ import java.util.List;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class UserMapperTest {
+
 
     @Resource
     UserMapper userMapper;
@@ -42,7 +44,7 @@ public class UserMapperTest {
     @Test
     public void update() {
         User user = userMapper.findById("7a7b31e78c8611e782129c5c8e6d8f44");
-        user.setAvatarUrl("F:/def.png");
+        user.setPassword(new Md5PasswordEncoder().encodePassword("123456", null));
         int result = userMapper.update(user);
         System.out.println(result);
     }
@@ -64,5 +66,11 @@ public class UserMapperTest {
     public void findTotalCount(){
         int count = userMapper.findTotalCount();
         System.out.println(count);
+    }
+
+    @Test
+    public void findByUsername() throws Exception {
+        User user = userMapper.findByUsername("lhing17");
+        System.out.println(user);
     }
 }

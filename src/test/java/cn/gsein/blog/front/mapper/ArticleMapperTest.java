@@ -25,8 +25,9 @@ public class ArticleMapperTest {
     @Test
     public void save() {
         User user = userMapper.findById("7a7b31e78c8611e782129c5c8e6d8f44");
-        Article article = Article.builder().author(user).readAmount(160).title("这是一条神奇的天路")
+        Article article = Article.builder().author(user).views(160).title("这是一条神奇的天路")
                 .content("这是一条神奇的天路，让中华儿女放在心上，一条条巨龙翻山越岭，给藏家儿女带来吉祥")
+                .pictureUrl("images/asd.png")
                 .build();
         int result = articleMapper.save(article);
         System.out.println(result);

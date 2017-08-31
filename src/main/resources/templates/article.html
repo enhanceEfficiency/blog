@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${article.title}">Zookeeper学习记录(二)--应用场景</title>
+    <link rel="stylesheet" type="text/css" href="/css/gsein_common.css"/>
+</head>
+<body>
+<div id="wrapper">
+    <div th:replace="header::header"></div>
+    <div class="main">
+        <article class="blog_article">
+            <header>
+                <h1 th:text="${article.title}" class="blog_title">Zookeeper学习记录(二)--应用场景</h1>
+                <div class="info_bar">
+                    <span class="blog_tag">值得看一千次的图片</span>
+                    <span th:text="${article.publishTime}" class="time">2017/8/28 16:22</span>
+                    <span th:text="${article.views}+次" class="views">112次</span>
+                </div>
+            </header>
+            <div class="blog_digest">
+                <p th:text="${article.digest}" class="shallow">图片分为背景图片和通过img标签引入的图片，前者可以通过media
+                    query自动的切换不同分辨率的版本，</p>
+            </div>
+            <div th:text="${article.content}" class="blog_content">
+                <p>article的使用方法</p>
+            </div>
+
+            <footer>
+                <p>
+                    <small>Copyright @ yiiyaa.net All Rights Reserverd</small>
+                </p>
+            </footer>
+        </article>
+    </div>
+    <div class="aside">
+        <div class="categories aside_panel">
+            <h2 class="category_title">分类</h2>
+            <div class="traveling">旅行 (12)</div>
+            <div class="photos">照片 (28)</div>
+            <div class="lifestyles">生活方式 (4)</div>
+            <div class="inspiration">心灵鸡汤 (4)</div>
+            <div class="fashion">时尚 (28)</div>
+            <div class="business">商业 (9)</div>
+            <div class="technology">科技 (16)</div>
+        </div>
+        <div class="archive aside_panel">
+            <h2 class="archive_title">归档</h2>
+            <div>2014 (12)</div>
+            <div>2015 (28)</div>
+            <div>2016 (9)</div>
+            <div>2017 (16)</div>
+        </div>
+    </div>
+    <div th:replace="footer::footer"></div>
+</div>
+</body>
+</html>
