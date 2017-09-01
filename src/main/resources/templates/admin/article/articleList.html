@@ -36,12 +36,12 @@
                                     <div class="col-sm-2 m-b-xs">
                                         <select data-placeholder="请选择分类" class="chosen-select" style="width:200px;" id="categoryId" name="categoryId">
                                             <option value="">请选择分类</option>
-                                            <option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.categoryName}"></option>
+                                            <option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.name}"></option>
                                         </select>
                                     </div>
                                     <div class="col-sm-5 m-b-xs">
                                         <select data-placeholder="请选择标签" name="tagId" id="tagId" class="chosen-select" multiple style="width:430px;" tabindex="5">
-                                            <option hassubinfo="true" th:each="tag : ${tagList}" th:text="${tag.tagName}" th:value="${tag.id}"></option>
+                                            <option hassubinfo="true" th:each="tag : ${tagList}" th:text="${tag.name}" th:value="${tag.id}"></option>
                                         </select>
                                     </div>
                                     <div class="col-sm-3">

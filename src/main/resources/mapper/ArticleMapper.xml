@@ -34,8 +34,8 @@
         <selectKey keyProperty="id" resultType="String" order="BEFORE">
             select replace(uuid(),'-','') from dual
         </selectKey>
-        INSERT INTO blog_article (id, tag_id, category_id, views, title, content, user_id, status, picture_url, digest)
-        VALUES (#{id}, #{tag.id}, #{category.id}, #{views}, #{title}, #{content}, #{author.id}, '0', #{pictureUrl}, #{digest})
+        INSERT INTO blog_article (id, category_id, views, title, content, user_id, status, picture_url, digest)
+        VALUES (#{id}, #{category.id}, #{views}, #{title}, #{content}, #{author.id}, '0', #{pictureUrl}, #{digest})
     </insert>
 
     <update id="delete" parameterType="article">
@@ -53,7 +53,6 @@
         content=#{content},
         publish_time=#{publishTime},
         last_update_time=CURRENT_TIMESTAMP,
-        tag_id=#{tag.id},
         category_id=#{category.id},
         user_id=#{author.id},
         picture_url=#{pictureUrl},
@@ -75,5 +74,45 @@
 
     <select id="findTotalCount" resultType="integer">
         select count(*) from blog_article where status='0';
+    </select>
+
+    <select id="findByParams" parameterType="map" resultMap="articleMap">
+        select * from blog_article a
+        left join blog_user u on a.user_id = u.id
+        left join blog_category c on a.category_id = c.id
+        left join (select bat.article_id, bat.tag_id from blog_article_tag bat left join blog_tag t on bat.tag_id = t.id) t on a.id = t.article_id
+        where 1=1
+        <if test="title != null and title !=''">
+            and title like '%'||#{title}||'%'
+        </if>
+        <if test="categoryId != null and categoryId != ''">
+            and category_id = #{categoryId}
+        </if>
+        <if test="tagIds != null and tagIds !=''">
+            and tag_id in
+            <foreach collection="tagIds" item="tagId" open="(" separator="," close=")">
+                #{tagId}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="findCountByParams" parameterType="map" resultType="int">
+        select count(*) from blog_article a
+        left join blog_user u on a.user_id = u.id
+        left join blog_category c on a.category_id = c.id
+        left join (select bat.article_id, bat.tag_id from blog_article_tag bat left join blog_tag t on bat.tag_id = t.id) t on a.id = t.article_id
+        where 1=1
+        <if test="title != null and title !=''">
+            and title like '%'||#{title}||'%'
+        </if>
+        <if test="categoryId != null and categoryId != ''">
+            and category_id = #{categoryId}
+        </if>
+        <if test="tagIds != null and tagIds !=''">
+            and tag_id in
+            <foreach collection="tagIds" item="tagId" open="(" separator="," close=")">
+                #{tagId}
+            </foreach>
+        </if>
     </select>
 </mapper>

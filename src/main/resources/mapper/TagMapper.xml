@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!--suppress ALL -->
+<mapper namespace="cn.gsein.blog.front.mapper.TagMapper">
+    <insert id="save" parameterType="tag">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        INSERT INTO blog_tag (id, name, status)
+        VALUES (#{id}, #{name}, '0')
+    </insert>
+
+    <!--<update id="delete" parameterType="user">
+        update blog_user set status='1' where id=#{id} and status='0'
+    </update>
+
+    <update id="deleteById" parameterType="string">
+        update blog_user set status='1' where id=#{id} and status='0'
+    </update>
+
+    <update id="update" parameterType="user">
+        update blog_user set username=#{username}, password=#{password}, avatar_url=#{avatarUrl}, last_update_time=CURRENT_TIMESTAMP where id=#{id} and status='0'
+    </update>
+
+    <select id="findById" parameterType="string" resultType="user">
+        select id, username, password, avatar_url, create_time, last_update_time, status from blog_user where id=#{id} and status='0';
+    </select>-->
+
+    <select id="findAll" resultType="tag">
+        select * from blog_tag where status='0';
+    </select>
+
+    <!--<select id="findTotalCount" resultType="integer">
+        select count(*) from blog_user where status='0';
+    </select>
+
+    <select id="findByUsername" parameterType="string" resultType="user">
+        select id, username, password, avatar_url, create_time, last_update_time, status from blog_user where username=#{username} and status='0';
+    </select>-->
+</mapper>

@@ -1,6 +1,7 @@
 package cn.gsein.blog.front.mapper;
 
 import cn.gsein.blog.front.model.Article;
+import cn.gsein.blog.front.model.Pager;
 import cn.gsein.blog.front.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by G.Seinfeld on 2017/8/29.
@@ -16,6 +19,8 @@ import java.util.List;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class ArticleMapperTest {
+
+
     @Resource
     private ArticleMapper articleMapper;
 
@@ -72,5 +77,21 @@ public class ArticleMapperTest {
     public void findTotalCount() {
         int count = articleMapper.findTotalCount();
         System.out.println(count);
+    }
+
+    @Test
+    public void findCountByParams() throws Exception {
+        Map<String, Object> params = new HashMap<>();
+        params.put("pager", Pager.builder().page(1).start(0).limit(10).build());
+        params.put("categoryId", "1acc8cc58edf11e7af389c5c8e6d8f44");
+        params.put("title", "这是");
+        params.put("tagIds", null);
+        int count = articleMapper.findCountByParams(params);
+        System.out.println(count);
+        /*if (tagIds != null && !"".equals(tagIds)) {
+            params.put("tagIds", tagIds.split(","));
+        } else {
+            params.put("tagIds", null);
+        }*/
     }
 }

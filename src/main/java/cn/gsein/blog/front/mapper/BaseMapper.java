@@ -1,5 +1,7 @@
 package cn.gsein.blog.front.mapper;
 
+import cn.gsein.blog.front.model.Pager;
+
 import java.util.List;
 
 /**
@@ -16,6 +18,8 @@ public interface BaseMapper<T> {
     int update(T t);
 
     T findById(String id);
+
+    List<T> findByPager(Pager<T> pager);
 
     List<T> findAll();
 
