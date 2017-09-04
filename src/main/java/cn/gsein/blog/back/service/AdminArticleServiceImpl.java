@@ -9,6 +9,7 @@ import cn.gsein.blog.front.model.Tag;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,4 +50,37 @@ public class AdminArticleServiceImpl implements AdminArticleService {
     public List<Tag> loadAllTags(){
         return tagMapper.findAll();
     }
+
+    @Override
+    public void saveArticle(Article article, String tagIds) {
+        articleMapper.save(article);
+        saveArticleTagsIfNotNull(article, tagIds);
+    }
+
+    @Override
+    public Article loadArticle(String id) {
+        return articleMapper.findById(id);
+    }
+
+    @Override
+    public void updateArticle(Article article, String tagIds) {
+        articleMapper.update(article);
+        articleMapper.deleteArticleTags(article.getId());
+        saveArticleTagsIfNotNull(article, tagIds);
+    }
+
+    private void saveArticleTagsIfNotNull(Article article, String tagIds) {
+        if (tagIds != null && !"".equals(tagIds) && article.getId() != null) {
+            Map<String, Object> params = new HashMap<>();
+            params.put("articleId", article.getId());
+            params.put("tagIds", tagIds.split(","));
+            articleMapper.saveArticleTags(params);
+        }
+    }
+
+    @Override
+    public void deleteArticleById(String id){
+        articleMapper.deleteById(id);
+    }
+
 }

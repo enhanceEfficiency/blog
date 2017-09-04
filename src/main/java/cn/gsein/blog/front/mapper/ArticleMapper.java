@@ -14,4 +14,8 @@ public interface ArticleMapper extends BaseMapper<Article> {
     List<Article> findByParams(Map<String, Object> params);
 
     int findCountByParams(Map<String, Object> params);
+
+    int saveArticleTags(Map<String, Object> params);
+
+    int deleteArticleTags(String id);
 }

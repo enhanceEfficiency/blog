@@ -148,9 +148,9 @@ function save() {
     $.ajax({
         type: "POST",
         url: '/admin/article/save',
-        data: 'categoryId=' + categoryId + "&tags=" + tagIds + "&title=" + title + "&content=" + encodeURI(content) + "&description=" +  encodeURI(description),
+        data: 'categoryId=' + categoryId + "&tagIds=" + tagIds + "&title=" + title + "&content=" + encodeURI(content) + "&digest=" +  encodeURI(description),
         success: function (data) {
-            if (data.resultCode != 'success') {
+            if (data.code != 'success') {
                 autoCloseAlert(data.errorInfo, 1000);
                 return false;
             } else {

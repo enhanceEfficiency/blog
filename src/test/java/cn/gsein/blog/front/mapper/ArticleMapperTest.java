@@ -20,7 +20,6 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 public class ArticleMapperTest {
 
-
     @Resource
     private ArticleMapper articleMapper;
 
@@ -40,7 +39,7 @@ public class ArticleMapperTest {
 
     @Test
     public void findById() {
-        Article article = articleMapper.findById("18b54e378c9611e782129c5c8e6d8f44");
+        Article article = articleMapper.findById("38e720ea911a11e79e899c5c8e6d8f44");
         System.out.println(article);
     }
 
@@ -94,4 +93,16 @@ public class ArticleMapperTest {
             params.put("tagIds", null);
         }*/
     }
+
+    @Test
+    public void saveArticleTags() throws Exception {
+        String articleId = "1";
+        String[] tagIds = {"2", "3", "4"};
+        Map<String, Object> params = new HashMap<>();
+        params.put("articleId", articleId);
+        params.put("tagIds", tagIds);
+        int result = articleMapper.saveArticleTags(params);
+        System.out.println(result);
+    }
+
 }

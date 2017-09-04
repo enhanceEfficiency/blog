@@ -20,4 +20,12 @@ public interface AdminArticleService {
     List<Category> loadAllCategories();
 
     List<Tag> loadAllTags();
+
+    void saveArticle(Article article, String tagIds);
+
+    Article loadArticle(String id);
+
+    void updateArticle(Article article, String tagIds);
+
+    void deleteArticleById(String id);
 }

@@ -133,19 +133,21 @@ $("#article-add").on('click', function () {
 
 // 删除文章
 $("#dataList").on('click', '.article-delete', function () {
+    var id = $(this).parent().data("id");
     new $.flavr({
         content: '您确定要删除吗?',
 
         buttons: {
             primary: {
                 text: '确定', style: 'primary', action: function () {
+                    console.log('/admin/article/delete/' + id);
                     $.ajax({
-                        url: '/admin/article/delete/' + $(this).parent().data("id"),
+                        url: '/admin/article/delete/' + id,
                         method: "GET",
                         success: function (data) {
-                            if (data.resultCode == 'success') {
+                            if (data.code === 'success') {
                                 autoCloseAlert(data.errorInfo, 1000);
-                                loadArticleList();
+                                initPage();
                             } else {
                                 autoCloseAlert(data.errorInfo, 1000);
                             }
@@ -167,5 +169,5 @@ $("#dataList").on('click', '.article-delete', function () {
 
 // 编辑文章
 $("#dataList").on('click', '.article-edit', function () {
-    window.open("/admin/article/editJump/?id=" + $(this).parent().data("id"));
+    window.open("/admin/article/edit?id=" + $(this).parent().data("id"));
 });

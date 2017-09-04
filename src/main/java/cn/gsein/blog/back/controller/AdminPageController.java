@@ -1,6 +1,7 @@
 package cn.gsein.blog.back.controller;
 
 import cn.gsein.blog.back.service.AdminArticleService;
+import cn.gsein.blog.front.model.Article;
 import cn.gsein.blog.front.model.Category;
 import cn.gsein.blog.front.model.Tag;
 import cn.gsein.blog.front.model.User;
@@ -39,8 +40,23 @@ public class AdminPageController {
     }
 
     @RequestMapping("/article/addPage")
-    public String toAddArticlePage(){
+    public String toAddArticlePage() {
         return "admin/article/articleAdd";
     }
 
+    @RequestMapping("/article/edit")
+    public String toEditArticlePage(Model model, String id) {
+        Article article = adminArticleService.loadArticle(id);
+        model.addAttribute("article", article);
+        return "admin/article/articleEdit";
+    }
+
+    @RequestMapping("/tag/list")
+    public String toTagList(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        List<Tag> tagList = adminArticleService.loadAllTags();
+        model.addAttribute("user", user);
+        model.addAttribute("tagList", tagList);
+        return "admin/label/labelList";
+    }
 }

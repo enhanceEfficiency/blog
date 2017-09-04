@@ -112,12 +112,12 @@ function save() {
 
     var categoryId = $("#categoryId").val();
     if(isEmpty(categoryId)){
-        autoCloseconsole.log("请选择栏目",500);
+        autoCloseAlert("请选择栏目",500);
         return false;
     }
     var title = $("#title").val();
     if(isEmpty(title)){
-        autoCloseconsole.log("请输入标题",500);
+        autoCloseAlert("请输入标题",500);
         return false;
     }
     title = encodeURIComponent(title);
@@ -126,7 +126,7 @@ function save() {
     content = encodeURIComponent(content);
     var description = $("#description").val();
     if (isEmpty(description)) {
-        autoCloseconsole.log("请输入文章描述", 500);
+        autoCloseAlert("请输入文章描述", 500);
         return false;
     }
     description = encodeURIComponent(description);
@@ -136,7 +136,7 @@ function save() {
         tagIds.push($(this).val());
     })
     if (isEmpty(tagIds)) {
-        autoCloseconsole.log("请输入标签", 500);
+        autoCloseAlert("请输入标签", 500);
         return false;
         // var ids = (tagId+"").split(",");
         // var tagArray = [];
@@ -152,10 +152,10 @@ function save() {
     $.ajax({
         type : "POST",
         url :  '/admin/article/update',
-        data : 'id='+id+'&categoryId=' + categoryId + "&tags=" + tagIds + "&title=" + title + "&content=" + encodeURI(content) + "&description=" +  encodeURI(description),
+        data : 'id='+id+'&categoryId=' + categoryId + "&tagIds=" + tagIds + "&title=" + title + "&content=" + encodeURI(content) + "&digest=" +  encodeURI(description),
         success  : function(data) {
-            if(data.resultCode != 'success'){
-                autoCloseconsole.log(data.errorInfo,1000);
+            if(data.code != 'success'){
+                autoCloseAlert(data.errorInfo,1000);
                 closeEditWindow();
                 return false;
             }else{
@@ -183,8 +183,8 @@ function save() {
     });
 }
 
-function cancleEditArticle(){
-	window.location.href = getRootPath()+ "admin/article/list";
+function cancelEditArticle(){
+	window.location.href = getRootPath()+ "article/list";
 }
 
 //关闭编辑窗口

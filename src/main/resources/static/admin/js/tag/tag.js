@@ -1,14 +1,8 @@
-$(function() {
-    $("#label-manage-li").addClass("active");
-    $("#label-list-li").addClass("active");
-    $("#label-list-li").parent().addClass("in");
-    var page = $("#current-page").val();
-    if (page == null || page == 0) {
-        page = 1;
-    }
+function initPage(page) {
+    var param = $("#keyword").val();
     $.ajax({
         url: '/admin/tag/initPage',
-        data: 'page=' + page,
+        data: 'page=' + page+"&tagName="+param,
         success: function (data) {
             $("#total-num").text(data.totalCount);
             $("#total-page").text(data.totalPageNum);
@@ -22,21 +16,32 @@ $(function() {
                     next: '<li class="next"><a href="javascript:;">Next</a></li>',
                     page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
                     onPageChange: function (num, type) {
-                        // 加载管理员列表
+                        // 加载标签列表
                         $("#current-page").text(num);
                         loadTagList();
                     }
                 });
-            }else{
+            } else {
                 loadTagList();
             }
 
         }
     });
+}
+
+$(function() {
+    $("#label-manage-li").addClass("active");
+    $("#label-list-li").addClass("active");
+    $("#label-list-li").parent().addClass("in");
+    var page = $("#current-page").val();
+    if (page == null || page == 0) {
+        page = 1;
+    }
+    initPage(page);
 });
 
 
-// 加载管理员列表
+// 加载标签列表
 function loadTagList(){
 	// 收集参数
 	var param = $("#keyword").val();
@@ -74,7 +79,7 @@ $("#dataList").on('click','.tag-delete',function () {
                         url : '/admin/tag/delete/'+id,
                         method: "GET",
                         success  : function(data) {
-                            if(data.resultCode == 'success'){
+                            if(data.code == 'success'){
                                 autoCloseAlert(data.errorInfo,1000);
                                 window.location.href = "/admin/tag/list";
                             }else{
@@ -97,7 +102,7 @@ $("#dataList").on('click','.tag-delete',function () {
 // 跳转编辑页
 $("#dataList").on('click','.tag-edit',function () {
 	$.ajax({
-        url : '/admin/tag/editJump/'+$(this).parent().data("id"),
+        url : '/admin/tag/editPage/'+$(this).parent().data("id"),
       	method: "GET",
         success  : function(data) {
         	$('#editTagContent').html(data);
@@ -108,27 +113,27 @@ $("#dataList").on('click','.tag-edit',function () {
     });
 });
 
-// 关闭编辑管理员窗口
+// 关闭编辑标签窗口
 function closeEditWindow(){
 	$('#editTagModal').modal('hide');
 }
 
-// 关闭新增管理员窗口
+// 关闭新增标签窗口
 function closeAddWindow(){
 	$('#addTagModal').modal('hide');
 }
 
 
-// 编辑管理员
+// 编辑标签
 function saveEditTag(){
 	if(validateEditTag()){
 		$.ajax({
 	        url : '/admin/tag/update',
 	        data : encodeURI($("#editForm").serialize()),
 	        success  : function(data) {
-	        	if(data.resultCode == 'success'){
+	        	if(data.code === 'success'){
 	        		$('#editTagModal').modal('hide');
-                    loadTagList();
+                    initPage(1);
                     autoCloseAlert(data.errorInfo,1000);
                 }else{
 	        		autoCloseAlert(data.errorInfo,1000);
@@ -138,14 +143,15 @@ function saveEditTag(){
 	}
 }
 
-// 新增管理员
+// 新增标签
 function saveAddTag(){
 	if(validateAddTag()){
 		$.ajax({
 	        url : '/admin/tag/save',
 	        data : encodeURI($("#addForm").serialize()),
 	        success  : function(data) {
-	        	if(data.resultCode == 'success'){
+	            console.log(data);
+	        	if(data.code == 'success'){
                     autoCloseAlert(data.errorInfo,1000);
                     window.location.href = "/admin/tag/list";
 	        	}else{
@@ -156,10 +162,9 @@ function saveAddTag(){
 	}
 }
 
-// 校验新增管理员输入框
+// 校验新增标签输入框
 function validateAddTag(){
 	var tagName = $("#tagName").val();
-	var aliasName = $("#aliasName").val();
 	if(!isEmpty(tagName)){
 		if(isSpecialSymbols(tagName)){
 			autoCloseAlert("标签不能包含特殊符号",1000);
@@ -169,19 +174,10 @@ function validateAddTag(){
 		autoCloseAlert("标签不能为空",1000);
 		return false;
 	}
-    if(!isEmpty(aliasName)){
-        if(isSpecialSymbols(aliasName)){
-            autoCloseAlert("标签不能包含特殊符号",1000);
-            return false;
-        }
-    }else{
-        autoCloseAlert("标签不能为空",1000);
-        return false;
-    }
 	return true;
 }
 
-// 校验编辑管理员输入框
+// 校验编辑标签输入框
 function validateEditTag(){
 	var tagName = $("#tagName").val();
 	if(!isEmpty(tagName)){
@@ -197,10 +193,10 @@ function validateEditTag(){
 	return true;
 }
 
-// 跳转新增管理员页面
+// 跳转新增标签页面
 $("#tag-add").on('click',function () {
 	$.ajax({
-        url : '/admin/tag/addJump',
+        url : '/admin/tag/addPage',
         success  : function(data) {
         	$('#addTagContent').html(data);
         	$('#addTagModal').modal('show');

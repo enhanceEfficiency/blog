@@ -1,9 +1,6 @@
 package cn.gsein.blog.front.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.apache.ibatis.type.Alias;
 
 import java.sql.Timestamp;
@@ -16,6 +13,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Alias("tag")
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 public class Tag {
     private String id;
     private String name;
