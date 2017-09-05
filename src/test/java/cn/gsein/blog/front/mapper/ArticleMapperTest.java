@@ -46,6 +46,7 @@ public class ArticleMapperTest {
     @Test
     public void findAll() {
         List<Article> articles = articleMapper.findAll();
+        System.out.println(articles.size());
         for (Article article : articles) {
             System.out.println(article);
         }

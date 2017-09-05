@@ -42,6 +42,11 @@ public class AdminArticleServiceImpl implements AdminArticleService {
     }
 
     @Override
+    public int getArticleCountByCategoryId(String categoryId) {
+        return articleMapper.findCountByCategoryId(categoryId);
+    }
+
+    @Override
     public List<Category> loadAllCategories(){
         return categoryMapper.findAll();
     }

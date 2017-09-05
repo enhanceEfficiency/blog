@@ -13,24 +13,31 @@
 
     <!--<update id="delete" parameterType="user">
         update blog_user set status='1' where id=#{id} and status='0'
-    </update>
+    </update>-->
 
     <update id="deleteById" parameterType="string">
-        update blog_user set status='1' where id=#{id} and status='0'
+        update blog_category set status='1' where id=#{id} and status='0'
     </update>
 
-    <update id="update" parameterType="user">
-        update blog_user set username=#{username}, password=#{password}, avatar_url=#{avatarUrl}, last_update_time=CURRENT_TIMESTAMP where id=#{id} and status='0'
+    <update id="update" parameterType="category">
+        update blog_category set name=#{name}, last_update_time=CURRENT_TIMESTAMP where id=#{id} and status='0'
     </update>
 
-    <select id="findById" parameterType="string" resultType="user">
-        select id, username, password, avatar_url, create_time, last_update_time, status from blog_user where id=#{id} and status='0';
-    </select>-->
+    <select id="findById" parameterType="string" resultType="category">
+        select * from blog_category where id=#{id} and status='0';
+    </select>
 
     <select id="findAll" resultType="category">
         select * from blog_category where status='0';
     </select>
 
+    <select id="findTotalCountByName" parameterType="string" resultType="int">
+        select count(*) from blog_category where name like '%'||#{categoryName}||'%' and status = '0'
+    </select>
+
+    <select id="findByParams" parameterType="map" resultType="category">
+        select * from blog_category where name like '%'||#{categoryName}||'%' and status = '0' limit #{pager.start}, #{pager.limit}
+    </select>
     <!--<select id="findTotalCount" resultType="integer">
         select count(*) from blog_user where status='0';
     </select>

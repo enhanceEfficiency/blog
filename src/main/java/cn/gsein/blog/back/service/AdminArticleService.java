@@ -17,6 +17,8 @@ public interface AdminArticleService {
 
     int getArticleCount(Map<String, Object> params);
 
+    int getArticleCountByCategoryId(String categoryId);
+
     List<Category> loadAllCategories();
 
     List<Tag> loadAllTags();

@@ -18,4 +18,8 @@ public interface ArticleMapper extends BaseMapper<Article> {
     int saveArticleTags(Map<String, Object> params);
 
     int deleteArticleTags(String id);
+
+    int findCountByCategoryId(String categoryId);
+
+    int updateCategoryId(String categoryId);
 }
