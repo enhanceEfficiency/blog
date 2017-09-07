@@ -18,13 +18,23 @@ public class PageController {
     private ArticleMapper articleMapper;
 
     @RequestMapping("/index")
-    public String index(Model model){
+    public String index(Model model) {
         model.addAttribute("articles", articleMapper.findAll()); // 所有文章
+        model.addAttribute("latestProgrammerArticle", articleMapper.findLatestArticleByCategoryId("9b743c67937811e7b36e9c5c8e6d8f44"));
+        model.addAttribute("latestGameDesignerArticle", articleMapper.findLatestArticleByCategoryId("a0df5321937811e7b36e9c5c8e6d8f44"));
+        model.addAttribute("latestInvestorArticle", articleMapper.findLatestArticleByCategoryId("acfbd690937811e7b36e9c5c8e6d8f44"));
+        model.addAttribute("latestTranslatorArticle", articleMapper.findLatestArticleByCategoryId("b10f49dd937811e7b36e9c5c8e6d8f44"));
         return "index";
     }
 
+    @RequestMapping("/articleList/{categoryId}")
+    public String articleList(@PathVariable String categoryId, Model model) {
+        model.addAttribute("articleList", articleMapper.findByCategoryId(categoryId));
+        return "articleList";
+    }
+
     @RequestMapping("/article/{id}")
-    public String article(@PathVariable String id, Model model){
+    public String article(@PathVariable String id, Model model) {
         model.addAttribute("article", articleMapper.findById(id)); // 所有文章
         return "article";
     }

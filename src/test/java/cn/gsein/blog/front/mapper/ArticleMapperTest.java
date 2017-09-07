@@ -20,6 +20,7 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 public class ArticleMapperTest {
 
+
     @Resource
     private ArticleMapper articleMapper;
 
@@ -93,6 +94,12 @@ public class ArticleMapperTest {
         } else {
             params.put("tagIds", null);
         }*/
+    }
+
+    @Test
+    public void findLatestArticleByCategoryId() throws Exception {
+        Article article = articleMapper.findLatestArticleByCategoryId("9b743c67937811e7b36e9c5c8e6d8f44");
+        System.out.println(article);
     }
 
     @Test

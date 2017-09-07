@@ -21,5 +21,9 @@ public interface ArticleMapper extends BaseMapper<Article> {
 
     int findCountByCategoryId(String categoryId);
 
+    Article findLatestArticleByCategoryId(String categoryId);
+
+    List<Article> findByCategoryId(String categoryId);
+
     int updateCategoryId(String categoryId);
 }

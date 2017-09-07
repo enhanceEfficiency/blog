@@ -156,10 +156,29 @@
     </delete>
 
     <select id="findCountByCategoryId" parameterType="string" resultType="int">
-        select count(*) from blog_article where category_id = #{categoryId}
+        select count(*) from blog_article where category_id = #{categoryId} and status='0'
+    </select>
+
+    <select id="findLatestArticleByCategoryId" parameterType="string" resultType="article">
+        select * from blog_article where category_id = #{categoryId} and status='0' order by publish_time desc limit 0, 1
     </select>
 
     <update id="updateCategoryId" parameterType="string">
         update blog_article set category_id = '2301bb6b920b11e7a1249c5c8e6d8f44', last_update_time=CURRENT_TIMESTAMP where category_id = #{categoryId}
     </update>
+
+    <select id="findByCategoryId" parameterType="string" resultMap="articleMap">
+        select a.id, a.title, a.views, a.digest, a.content, a.publish_time, a.create_time, a.last_update_time, a.status,
+        a.picture_url,
+        u.id u_id, u.username, u.password, u.avatar_url, u.create_time u_create_time, u.last_update_time
+        u_last_update_time, u.status u_status,
+        c.id c_id, c.name c_name, c.status c_status, c.create_time c_create_time, c.last_update_time c_last_update_time,
+        t.id t_id, t.name t_name, t.status t_status, t.create_time t_create_time, t.last_update_time t_last_update_time
+        from blog_article a
+        left join blog_user u on a.user_id = u.id
+        left join blog_category c on a.category_id = c.id
+        left join (select bat.article_id, bat.tag_id, t.id, t.name, t.status, t.create_time, t.last_update_time from
+        blog_article_tag bat left join blog_tag t on bat.tag_id = t.id) t on a.id = t.article_id
+        where a.status='0' and category_id = #{categoryId}
+    </select>
 </mapper>

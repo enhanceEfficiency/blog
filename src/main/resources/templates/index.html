@@ -1,65 +1,101 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <title>Gsein的个人博客</title>
-    <link rel="stylesheet" type="text/css" href="css/gsein_common.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Gsein的技术小屋</title>
+    <meta name="keywords" content="ancient, free css templates, CSS, HTML"/>
+    <meta name="description" content="Ancient is a free CSS template from www.cssmoban.com"/>
+    <link href="css/templatemo_style.css" rel="stylesheet" type="text/css"/>
+
+    <script language="javascript" type="text/javascript">
+        function clearText(field) {
+            if (field.defaultValue == field.value) field.value = '';
+            else if (field.value == '') field.value = field.defaultValue;
+        }
+    </script>
+
 </head>
 <body>
-<div id="wrapper">
-    <div th:replace="header::header"></div>
-    <div class="main">
-        <div th:each="article : ${articles}" class="blog_info">
-            <div class="info_bar">
-                <span class="blog_tag">值得看一千次的图片</span>
-                <span th:text="${article.publishTime}" class="time">2017/8/28 16:22</span>
-                <span th:text="${article.views}+次" class="views">112次</span>
-            </div>
-            <div class="digest">
-                <a th:href="|/article/${article.id}|" href="#"><h2 th:text="${article.title}">值得看一千次的图片</h2></a>
-                <div class="picture"><img th:src="${article.pictureUrl}" src="images/timg.jpg"></div>
-                <div class="digest_content">
-                    <p th:text="${article.digest}" class="shallow">图片分为背景图片和通过img标签引入的图片，前者可以通过media
-                        query自动的切换不同分辨率的版本，</p>
-                    <!--<p class="shallow">但是在不支持background images
-                        size的浏览器中背景图片无法无级的调整大小（也就是在media
-                        query切换css的点上可以换一张不同分辨率的图，但是没法儿获得两张分辨率中间大小的版本），而且在很多情况下（比如cms中）并不适合用背景图片。</p>-->
-                </div>
-            </div>
-            <div class="author_info">
-                <h3 class="author">作者</h3>
-                <div th:text="${article.author.username}" class="author_name">贼卡拉</div>
-                <img th:src="${article.author.avatarUrl}" class="author_avatar" src="images/avatar.jpg">
-                <div class="blog_share">
-                    <div class="weibo"></div>
-                    <div class="qq"></div>
-                    <div class="qzone"></div>
-                    <div class="friend_circle"></div>
-                </div>
-            </div>
+
+<div id="templatemo_wrapper">
+
+    <span class="bg_top"></span>
+    <span class="bg_bottom"></span>
+
+    <div th:replace="/part/menu::menu"></div>
+    <div th:replace="/part/header::header"></div>
+
+    <div id="templatemo_main">
+        <div class="cbox_fw">
+            <h2>博主の介绍</h2>
+            <a href="#"><img src="/images/templatemo_image_08.jpg" alt="image" class="image_frame image_fl"/></a>
+            <p>欢迎来到Gsein的技术小屋！我是Gsein，毕业于某知名高校的某理科专业。热爱编程的我在工作两年后毅然决定放弃本专业，去探索一个令我陌生又痴醉的崭新世界。</p>
+            <p>我还热爱研究投资，热爱游戏设计，热爱学习外语。我希望在这些领域能有所收获，也愿意与大家分享我的成长。</p>
+            <p>这个博客是我的第一个独立项目，虽然它可能并不美，但也凝结了我的心血。我希望以此为起点，在圆梦的路上越行越远。</p>
+            <!--<a href="#" class="more float_r"><span>&gt;&gt;</span> View All</a>-->
+            <div class="cleaner"></div>
         </div>
 
-    </div>
-    <div class="aside">
-        <div class="categories aside_panel">
-            <h2 class="category_title">分类</h2>
-            <div class="traveling">旅行 (12)</div>
-            <div class="photos">照片 (28)</div>
-            <div class="lifestyles">生活方式 (4)</div>
-            <div class="inspiration">心灵鸡汤 (4)</div>
-            <div class="fashion">时尚 (28)</div>
-            <div class="business">商业 (9)</div>
-            <div class="technology">科技 (16)</div>
+        <div th:replace="/part/sidebar::sidebar"></div>
+        <div id="content">
+            <div class="cbox_fws">
+                <h3>Talk is cheap, show me the code —— Linus</h3>
+                <div class="cbox_w280 float_l"><a href="#"><img src="/images/templatemo_image_04.jpg" alt="image"
+                                                                class="image_frame"/></a>
+                    <p class="digest" th:text="${latestProgrammerArticle.digest}">
+                        本博客采用Spring-boot+thymeleaf+mybatis的技术选型进行开发。</p>
+                    <a th:href="'/article/'+${latestProgrammerArticle.id}" class="more float_r"><span>&gt;&gt;</span>
+                        阅读全文</a>
+                    <div class="cleaner"></div>
+                </div>
+                <div class="cbox_w280 float_r"><a href="#"><img src="/images/templatemo_image_05.jpg" alt="image"
+                                                                class="image_frame"/></a>
+                    <p class="digest" th:text="${latestGameDesignerArticle.digest}">决战江湖2目前已经开始研发。</p>
+                    <a th:href="'/article/'+${latestGameDesignerArticle.id}" class="more float_r"><span>&gt;&gt;</span>
+                        阅读全文</a>
+                    <div class="cleaner"></div>
+                </div>
+                <div class="cleaner"></div>
+                <div class="cbox_w280 float_l"><a href="#"><img src="/images/templatemo_image_06.jpg" alt="image"
+                                                                class="image_frame"/></a>
+                    <p class="digest" th:text="${latestInvestorArticle.digest}">根据市值和GDP的比值来计算，3400点的点位大约正好是A股的价值中枢。</p>
+                    <a th:href="'/article/'+${latestInvestorArticle.id}" class="more float_r"><span>&gt;&gt;</span> 阅读全文</a>
+                    <div class="cleaner"></div>
+                </div>
+                <div class="cbox_w280 float_r"><a href="#"><img src="/images/templatemo_image_07.jpg" alt="image"
+                                                                class="image_frame"/></a>
+                    <p class="digest" th:text="${latestTranslatorArticle.digest}">真相永远只有一个。</p>
+                    <a th:href="'/article/'+${latestTranslatorArticle.id}" class="more float_r"><span>&gt;&gt;</span>
+                        阅读全文</a>
+                    <div class="cleaner"></div>
+                </div>
+                <div class="cleaner"></div>
+            </div>
+
+            <div class="cbox_last">
+                <h3>美图欣赏</h3>
+                <ul class="photo_gallery">
+                    <li><a href="#"><img src="/images/templatemo_image_01.jpg" alt="Image 1" class="image_frame"/></a>
+                    </li>
+                    <li><a href="#"><img src="/images/templatemo_image_02.jpg" alt="Image 2" class="image_frame"/></a>
+                    </li>
+                    <li class="rmp"><a href="#"><img src="/images/templatemo_image_03.jpg" alt="Image 3"
+                                                     class="image_frame"/></a></li>
+                </ul>
+                <div class="cleaner"></div>
+                <p><a href="#" class="more float_r"><span>&gt;&gt;</span> 查看全部</a></p>
+
+            </div>
+
         </div>
-        <div class="archive aside_panel">
-            <h2 class="archive_title">归档</h2>
-            <div>2014 (12)</div>
-            <div>2015 (28)</div>
-            <div>2016 (9)</div>
-            <div>2017 (16)</div>
-        </div>
-    </div>
-    <div th:replace="footer::footer"></div>
-</div>
+
+        <div class="cleaner"></div>
+    </div> <!-- end of main -->
+    <div id="templatemo_main_bottom"></div>
+
+    <div th:replace="/part/footer::footer"></div>
+
+</div> <!-- end of wrapper -->
+
 </body>
 </html>

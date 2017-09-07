@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Ancient Blog Theme</title>
+    <meta name="keywords" content="ancient blog theme, free css templates, blog template, CSS, HTML"/>
+    <meta name="description" content="Ancient Blog Theme - free blog template from www.cssmoban.com"/>
+    <link href="/css/templatemo_style.css" rel="stylesheet" type="text/css"/>
+
+    <script language="javascript" type="text/javascript">
+        function clearText(field) {
+            if (field.defaultValue == field.value) field.value = '';
+            else if (field.value == '') field.value = field.defaultValue;
+        }
+    </script>
+
+</head>
+<body>
+
+<div id="templatemo_wrapper">
+
+    <span class="bg_top"></span>
+    <span class="bg_bottom"></span>
+
+    <div th:replace="/part/menu::menu"></div>
+    <div th:replace="/part/header::header"></div>
+
+    <div id="templatemo_main">
+        <div th:replace="/part/sidebar::sidebar"></div>
+
+        <div id="content">
+
+            <div th:each="article : ${articleList}" class="cbox_fws">
+                <h3><a th:href="'/article'+${article.id}" th:text="${article.title}">A股估值正处于价值中枢</a></h3>
+                <p align="justify">
+                    <a href="#"><img th:src="${article.pictureUrl}" src="/images/templatemo_image_07.jpg" alt="image" class="image_frame image_fl"/></a>
+                    <span th:text="${article.digest}">根据市值和GDP的比值来计算，3400点的点位大约正好是A股的价值中枢。这一判断是基于巴菲特提出的黄金分割法计算的。这个部分写文章摘要有些过于简短
+                应该还是书写文章的内容比较合理，但是这样的话需要使用markdown转html的插件</span></p>
+                <p align="justify">
+                    分类: <a href="#" th:text="${article.category.name}">程序员</a> |
+                    <strong>阅读量：</strong><span th:text="${article.views}">600</span> |
+                    <strong><a href="#">Gsein</a>发表于</strong><span th:text="${#calendars.format(article.publishTime,'yyyy年MM月dd日')}">2017年9月7日</span>
+                </p>
+            </div>
+
+            <div class="cleaner h30"></div>
+
+        </div>
+
+        <div class="cleaner"></div>
+    </div> <!-- end of main -->
+    <div id="templatemo_main_bottom"></div>
+
+    <div th:replace="/part/footer::footer"></div>
+
+</div> <!-- end of wrapper -->
+
+</body>
+</html>
