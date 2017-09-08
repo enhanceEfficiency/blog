@@ -5,13 +5,16 @@
     <title>Gsein的技术小屋</title>
     <meta name="keywords" content="ancient, free css templates, CSS, HTML"/>
     <meta name="description" content="Ancient is a free CSS template from www.cssmoban.com"/>
-    <link href="css/templatemo_style.css" rel="stylesheet" type="text/css"/>
-
+    <link href="/css/templatemo_style.css" rel="stylesheet" type="text/css"/>
+    <script src="/js/jquery.min.js"></script>
     <script language="javascript" type="text/javascript">
         function clearText(field) {
             if (field.defaultValue == field.value) field.value = '';
             else if (field.value == '') field.value = field.defaultValue;
         }
+        $(function(){
+            $("#index").find("a").addClass("current");
+        });
     </script>
 
 </head>

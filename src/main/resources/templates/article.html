@@ -7,26 +7,20 @@
     <meta name="description" content="Ancient Blog Theme - free blog template from www.cssmoban.com"/>
     <link href="/css/templatemo_style.css" rel="stylesheet" type="text/css"/>
     <script src="/js/jquery.min.js"></script>
+    <script src="/admin/lib/prettify.min.js"></script>
+    <script src="/admin/lib/marked.min.js"></script>
+    <script src="/admin/lib/raphael.min.js"></script>
+    <script src="/admin/lib/underscore.min.js"></script>
+    <script src="/admin/lib/sequence-diagram.min.js"></script>
+    <script src="/admin/lib/flowchart.min.js"></script>
+    <script src="/admin/lib/jquery.flowchart.min.js"></script>
+    <script src="/admin/js/editormd.js"></script>
+    <script src="/js/article_content.js"></script>
     <script language="javascript" type="text/javascript">
         function clearText(field) {
             if (field.defaultValue == field.value) field.value = '';
             else if (field.value == '') field.value = field.defaultValue;
         }
-
-        $(function () {
-            var path = window.location.href;
-            var categoryId = path.substr(path.lastIndexOf("/") + 1);
-            console.log(categoryId);
-            if (categoryId === '9b743c67937811e7b36e9c5c8e6d8f44') {
-                $("#programmer").find("a").addClass("current");
-            } else if (categoryId === 'a0df5321937811e7b36e9c5c8e6d8f44') {
-                $("#game_designer").find("a").addClass("current");
-            } else if (categoryId === 'acfbd690937811e7b36e9c5c8e6d8f44') {
-                $("#investor").find("a").addClass("current");
-            } else if (categoryId === 'b10f49dd937811e7b36e9c5c8e6d8f44') {
-                $("#translator").find("a").addClass("current");
-            }
-        });
     </script>
 
 </head>
@@ -45,19 +39,22 @@
 
         <div id="content">
 
-            <div th:each="article : ${articleList}" class="cbox_fws">
-                <h3><a th:href="'/article/'+${article.id}" th:text="${article.title}">A股估值正处于价值中枢</a></h3>
-                <p align="justify" class="high">
-                    <a href="#"><img th:src="${article.pictureUrl}" src="/images/templatemo_image_07.jpg" alt="image"
-                                     class="image_frame image_fl"/></a>
-                    <span th:text="${article.digest}">根据市值和GDP的比值来计算，3400点的点位大约正好是A股的价值中枢。这一判断是基于巴菲特提出的黄金分割法计算的。这个部分写文章摘要有些过于简短
-                应该还是书写文章的内容比较合理，但是这样的话需要使用markdown转html的插件</span></p>
+            <div>
+                <h3 th:text="${article.title}">A股估值正处于价值中枢</h3>
                 <p align="justify">
                     分类: <a href="#" th:text="${article.category.name}">程序员</a> |
                     <strong>阅读量：</strong><span th:text="${article.views}">600</span> |
                     <strong><a href="#">Gsein</a>发表于</strong><span
                         th:text="${#calendars.format(article.publishTime,'yyyy年MM月dd日')}">2017年9月7日</span>
                 </p>
+                <!--<p align="justify">
+                    &lt;!&ndash;<a href="#"><img th:src="${article.pictureUrl}" src="/images/templatemo_image_07.jpg" alt="image" class="image_frame image_fl"/></a>&ndash;&gt;
+                    <span th:text="${article.digest}">根据市值和GDP的比值来计算，3400点的点位大约正好是A股的价值中枢。这一判断是基于巴菲特提出的黄金分割法计算的。这个部分写文章摘要有些过于简短
+                应该还是书写文章的内容比较合理，但是这样的话需要使用markdown转html的插件</span></p>-->
+                <p id="article_content" align="justify">
+                    <textarea id="append-test" style="display:none;" th:utext="${article.content}"></textarea>
+                </p>
+
             </div>
 
             <div class="cleaner h30"></div>
