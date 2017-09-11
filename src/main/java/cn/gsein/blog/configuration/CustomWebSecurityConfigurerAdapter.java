@@ -1,5 +1,6 @@
-package cn.gsein.blog.security;
+package cn.gsein.blog.configuration;
 
+import cn.gsein.blog.security.CustomAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;

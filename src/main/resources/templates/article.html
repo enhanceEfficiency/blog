@@ -39,7 +39,7 @@
 
         <div id="content">
 
-            <div>
+            <div class="cbox_fw">
                 <h3 th:text="${article.title}">A股估值正处于价值中枢</h3>
                 <p align="justify">
                     分类: <a href="#" th:text="${article.category.name}">程序员</a> |
@@ -55,6 +55,42 @@
                     <textarea id="append-test" style="display:none;" th:utext="${article.content}"></textarea>
                 </p>
 
+            </div>
+            <!-- 评论区 -->
+            <div class="comment_title">
+                <span>发表评论</span>
+            </div>
+            <div>
+                <p>用户名：<span>吉林省匿名网友</span></p>
+                <p>评论内容：</p>
+                <textarea style="width: 400px; height:200px;background: #FFEEC0;" placeholder="来说点什么吧..."></textarea>
+                <p><input type="button" class="mybtn" value="发布"/></p>
+            </div>
+            <div class="comment_title">
+                <span>最新评论</span>
+            </div>
+            <div>
+                <div class="comment">
+                    <div class="comment_info">
+                        28楼 <a>lhing17</a> 2016-06-14 14:40发表 <a>回复</a>
+                    </div>
+                    <img class="comment_avatar" src="/images/avatar/avatar_lhing17.jpg">
+                    <p class="comment_content">真的不错，简单易懂！</p>
+                </div>
+                <div class="comment">
+                    <div class="comment_info">
+                        28楼 <a>lhing17</a> 2016-06-14 14:40发表 <a>回复</a>
+                    </div>
+                    <img class="comment_avatar" src="/images/avatar/avatar_lhing17.jpg">
+                    <p class="comment_content">真的不错，简单易懂！</p>
+                </div>
+                <div class="comment">
+                    <div class="comment_info">
+                        28楼 <a>lhing17</a> 2016-06-14 14:40发表 <a>回复</a>
+                    </div>
+                    <img class="comment_avatar" src="/images/avatar/avatar_lhing17.jpg">
+                    <p class="comment_content">真的不错，简单易懂！</p>
+                </div>
             </div>
 
             <div class="cleaner h30"></div>

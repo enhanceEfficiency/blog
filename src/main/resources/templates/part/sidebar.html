@@ -7,15 +7,13 @@
 
         <h3>Gsein的大事记</h3>
         <ul class="nne_box">
-            <li><span>2017年9月7日</span><a href="#">Gsein的技术小屋开张</a></li>
-            <li><span>2017年2月16日</span><a href="#">入职某不知名互联网企业</a></li>
-            <li><span>2016年9月28日</span><a>开始在某培训机构接受Java培训</a></li>
-            <li><span>2016年8月28日</span><a>步入婚姻殿堂</a></li>
-            <li><span>2016年6月15日</span><a href="#">从某国企离职，立志走上程序员之路</a></li>
-            <li><span>2014年7月2日</span><a href="#">在某知名高校完成某理科专业硕士学位的研读</a></li>
+            <li th:each="memorabilia: ${memorabiliaList}">
+                <span th:text="${#calendars.format(memorabilia.eventTime, 'yyyy年MM月dd日')}"></span>
+                <a th:text="${memorabilia.eventDescription}" href="#">Gsein的技术小屋开张</a>
+            </li>
         </ul>
         <div class="cleaner"></div>
-        <p><a href="#" class="more float_r"><span>&gt;&gt;</span>更多</a></p>
+       <!-- <p><a href="#" class="more float_r"><span>&gt;&gt;</span>更多</a></p>-->
     </div>
 
     <div id="member_login">

@@ -1,6 +1,7 @@
 package cn.gsein.blog.front.controller;
 
 import cn.gsein.blog.front.mapper.ArticleMapper;
+import cn.gsein.blog.front.mapper.MemorabiliaMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,9 @@ public class PageController {
     @Resource
     private ArticleMapper articleMapper;
 
+    @Resource
+    private MemorabiliaMapper memorabiliaMapper;
+
     @RequestMapping("/index")
     public String index(Model model) {
         model.addAttribute("articles", articleMapper.findAll()); // 所有文章
@@ -24,18 +28,21 @@ public class PageController {
         model.addAttribute("latestGameDesignerArticle", articleMapper.findLatestArticleByCategoryId("a0df5321937811e7b36e9c5c8e6d8f44"));
         model.addAttribute("latestInvestorArticle", articleMapper.findLatestArticleByCategoryId("acfbd690937811e7b36e9c5c8e6d8f44"));
         model.addAttribute("latestTranslatorArticle", articleMapper.findLatestArticleByCategoryId("b10f49dd937811e7b36e9c5c8e6d8f44"));
+        model.addAttribute("memorabiliaList", memorabiliaMapper.findFirstSix());
         return "index";
     }
 
     @RequestMapping("/articleList/{categoryId}")
     public String articleList(@PathVariable String categoryId, Model model) {
         model.addAttribute("articleList", articleMapper.findByCategoryId(categoryId));
+        model.addAttribute("memorabiliaList", memorabiliaMapper.findFirstSix());
         return "articleList";
     }
 
     @RequestMapping("/article/{id}")
     public String article(@PathVariable String id, Model model) {
         model.addAttribute("article", articleMapper.findById(id)); // 所有文章
+        model.addAttribute("memorabiliaList", memorabiliaMapper.findFirstSix());
         return "article";
     }
 }
