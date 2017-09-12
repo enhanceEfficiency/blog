@@ -21,6 +21,33 @@
             if (field.defaultValue == field.value) field.value = '';
             else if (field.value == '') field.value = field.defaultValue;
         }
+
+        $(function () {
+            $("#comment_form").submit(function () {
+                    var commentBody = $(".comment_textarea").val();
+                    console.log(commentBody);
+                    if (commentBody === null || commentBody === "") {
+                        alert("评论内容不能为空！");
+                        return false;
+                    }
+                    var formData = $(this).serialize();
+                    console.log(formData);
+                    $.ajax({
+                        url: "/article/comment",
+                        data: formData,
+                        type: "post",
+                        dataType: "json",
+                        success: function (result) {
+                            console.log(result);
+                            if(result.code==="success"){
+                                location.reload();
+                            }
+                        }
+                    });
+                    return false;
+                }
+            );
+        });
     </script>
 
 </head>
@@ -61,35 +88,28 @@
                 <span>发表评论</span>
             </div>
             <div>
-                <p>用户名：<span>吉林省匿名网友</span></p>
-                <p>评论内容：</p>
-                <textarea style="width: 400px; height:200px;background: #FFEEC0;" placeholder="来说点什么吧..."></textarea>
-                <p><input type="button" class="mybtn" value="发布"/></p>
+                <form id="comment_form">
+                    <input type="hidden" name="id" th:value="${article.id}"/>
+                    <p>用户名：<input type="text" readonly th:value="${username}" value="吉林省匿名网友" name="username"></p>
+                    <p>评论内容：</p>
+                    <textarea class="comment_textarea" placeholder="来说点什么吧..." name="commentBody"></textarea>
+                    <p><input type="submit" class="mybtn" id="publish" value="发布"/></p>
+                </form>
             </div>
             <div class="comment_title">
                 <span>最新评论</span>
             </div>
             <div>
-                <div class="comment">
+                <div th:each="comment:${commentList}" class="comment">
                     <div class="comment_info">
-                        28楼 <a>lhing17</a> 2016-06-14 14:40发表 <a>回复</a>
+                        <span th:text="${comment.floor}">28</span>楼
+                        <span th:text="${comment.ip}"></span>
+                        <a th:text="${comment.username}">lhing17</a>
+                        <span th:text="${#calendars.format(comment.publishTime,'yyyy-MM-dd HH:mm')}">2016-06-14 14:40</span>发表
+                        <a>回复</a>
                     </div>
-                    <img class="comment_avatar" src="/images/avatar/avatar_lhing17.jpg">
-                    <p class="comment_content">真的不错，简单易懂！</p>
-                </div>
-                <div class="comment">
-                    <div class="comment_info">
-                        28楼 <a>lhing17</a> 2016-06-14 14:40发表 <a>回复</a>
-                    </div>
-                    <img class="comment_avatar" src="/images/avatar/avatar_lhing17.jpg">
-                    <p class="comment_content">真的不错，简单易懂！</p>
-                </div>
-                <div class="comment">
-                    <div class="comment_info">
-                        28楼 <a>lhing17</a> 2016-06-14 14:40发表 <a>回复</a>
-                    </div>
-                    <img class="comment_avatar" src="/images/avatar/avatar_lhing17.jpg">
-                    <p class="comment_content">真的不错，简单易懂！</p>
+                    <img class="comment_avatar" th:src="${comment.avatarUrl}" src="/images/avatar/avatar_lhing17.jpg">
+                    <p class="comment_content" th:text="${comment.content}">真的不错，简单易懂！</p>
                 </div>
             </div>
 

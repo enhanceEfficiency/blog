@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!--suppress ALL -->
+<mapper namespace="cn.gsein.blog.front.mapper.CommentMapper">
+    <insert id="save" parameterType="comment">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        INSERT INTO blog_comment (id, content, user_id, ip, article_id, floor)
+        VALUES (#{id}, #{content}, #{authorId}, #{ip}, #{articleId}, #{floor})
+    </insert>
+
+    <select id="findCountByArticleId" parameterType="string" resultType="int">
+        select count(*) from blog_comment where status = '0' and article_id = #{articleId}
+    </select>
+
+    <select id="findByArticleId" parameterType="string" resultType="comment">
+        select
+          c.id,
+          c.content,
+          c.publish_time,
+          c.user_id authorId,
+          u.username,
+          u.avatar_url,
+          c.ip,
+          c.article_id,
+          c.floor,
+          c.create_time,
+          c.last_update_time,
+          c.status
+         from blog_comment c left JOIN blog_user u on c.user_id = u.id
+         where c.status = '0' and c.article_id = #{articleId}
+         order by c.floor desc
+    </select>
+</mapper>

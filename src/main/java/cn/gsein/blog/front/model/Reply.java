@@ -18,7 +18,7 @@ public class Reply {
     private String title;
     private String content;
     private Date publishTime;
-    private User Author;
+    private User author;
     private Comment comment; //属于哪条评论
     private Integer floor; //楼中第几楼
     private Timestamp createTime;

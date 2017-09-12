@@ -1,13 +1,16 @@
 package cn.gsein.blog.front.controller;
 
 import cn.gsein.blog.front.mapper.ArticleMapper;
+import cn.gsein.blog.front.mapper.CommentMapper;
 import cn.gsein.blog.front.mapper.MemorabiliaMapper;
+import cn.gsein.blog.front.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by G.Seinfeld on 2017/8/28.
@@ -20,6 +23,9 @@ public class PageController {
 
     @Resource
     private MemorabiliaMapper memorabiliaMapper;
+
+    @Resource
+    private CommentMapper commentMapper;
 
     @RequestMapping("/index")
     public String index(Model model) {
@@ -40,9 +46,16 @@ public class PageController {
     }
 
     @RequestMapping("/article/{id}")
-    public String article(@PathVariable String id, Model model) {
+    public String article(@PathVariable String id, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if(user == null){
+            model.addAttribute("username", "匿名网友");
+        } else{
+            model.addAttribute("username", user.getUsername());
+        }
         model.addAttribute("article", articleMapper.findById(id)); // 所有文章
         model.addAttribute("memorabiliaList", memorabiliaMapper.findFirstSix());
+        model.addAttribute("commentList", commentMapper.findByArticleId(id));
         return "article";
     }
 }

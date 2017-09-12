@@ -1,9 +1,12 @@
 package cn.gsein.blog.front.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.type.Alias;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * Created by G.Seinfeld on 2017/8/29.
@@ -12,13 +15,16 @@ import java.util.Date;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
+@Alias("comment")
 public class Comment {
     private String id;
-    private String title;
-    private String content;
-    private Date publishTime;
-    private User Author;
-    private Article article;
+    private String content; // 评论内容
+    private Timestamp publishTime; // 发布时间
+    private String authorId; // 作者ID
+    private String username; // 作者用户名
+    private String avatarUrl; // 作者头像url
+    private String ip;
+    private String articleId; // 当前文章ID
     private Integer floor; //楼层
     private Timestamp createTime;
     private Timestamp lastUpdateTime;
