@@ -21,7 +21,7 @@ public class MemorabiliaMapperTest {
     private MemorabiliaMapper memorabiliaMapper;
 
     @Test
-    public void save(){
+    public void save() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2017, Calendar.FEBRUARY, 16);
         Memorabilia memorabilia = Memorabilia.builder().eventTime(calendar.getTime()).eventDescription("入职某不知名互联网企业").build();
@@ -45,8 +45,19 @@ public class MemorabiliaMapperTest {
     }
 
     @Test
-    public void findFirstSix(){
+    public void findFirstSix() {
         List<Memorabilia> memorabilias = memorabiliaMapper.findFirstSix();
-        System.out.println(memorabilias);
+        for (Memorabilia memorabilia : memorabilias) {
+            System.out.println(memorabilia);
+        }
     }
+
+    @Test
+    public void findFirstSome() throws Exception {
+        List<Memorabilia> memorabilias = memorabiliaMapper.findFirstSome(7);
+        for (Memorabilia memorabilia : memorabilias) {
+            System.out.println(memorabilia);
+        }
+    }
+
 }

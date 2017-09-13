@@ -10,7 +10,9 @@
         INSERT INTO blog_request_record (id, ip_address, url, request_time)
         VALUES (#{id}, #{ipAddress}, #{url}, #{requestTime})
     </insert>
-
+    <select id="findRecordCount" resultType="int">
+        select count(DISTINCT ip_address, date_format(request_time, '%Y%m%d')) FROM blog_request_record;
+    </select>
     <!--<update id="delete" parameterType="user">
         update blog_user set status='1' where id=#{id} and status='0'
     </update>-->

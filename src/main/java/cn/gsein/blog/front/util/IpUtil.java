@@ -12,7 +12,7 @@ import java.net.URLConnection;
  * Created by G.Seinfeld on 2017/9/12.
  */
 public class IpUtil {
-    public static JSONObject sendPostForSearchingIp(String ip) {
+    private static JSONObject sendPostForSearchingIp(String ip) {
         BufferedReader in = null;
         StringBuilder result = new StringBuilder();
         try {
@@ -36,7 +36,15 @@ public class IpUtil {
                 e.printStackTrace();
             }
         }
-        JSONObject object = JSONObject.parseObject(result.toString());
-        return object;
+        return JSONObject.parseObject(result.toString());
+    }
+
+    private static String getCity(JSONObject ipResult){
+        return ipResult.getJSONObject("data").getString("city");
+    }
+
+    public static String getCityByIp(String ip){
+        JSONObject ipResult = sendPostForSearchingIp(ip);
+        return getCity(ipResult);
     }
 }

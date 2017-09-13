@@ -14,6 +14,9 @@
     <select id="findFirstSix" resultType="memorabilia">
         select * from blog_memorabilia where status = '0' ORDER by event_time desc limit 0, 6
     </select>
+    <select id="findFirstSome" parameterType="int" resultType="memorabilia">
+        select * from blog_memorabilia where status = '0' ORDER by event_time desc limit 0, #{num}
+    </select>
     <!--<update id="delete" parameterType="user">
         update blog_user set status='1' where id=#{id} and status='0'
     </update>-->
