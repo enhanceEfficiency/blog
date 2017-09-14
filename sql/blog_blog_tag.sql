@@ -1,0 +1,4 @@
+INSERT INTO blog.blog_tag (id, name, create_time, last_update_time, status) VALUES ('1231654432132', '默认也可以改名吗', '2017-08-30 16:21:54', '2017-09-05 13:41:34', '0');
+INSERT INTO blog.blog_tag (id, name, create_time, last_update_time, status) VALUES ('845350b5915011e79e899c5c8e6d8f44', '这是啥', '2017-09-04 17:07:46', '2017-09-05 15:32:56', '0');
+INSERT INTO blog.blog_tag (id, name, create_time, last_update_time, status) VALUES ('e42f9250915011e79e899c5c8e6d8f44', '编程思想', '2017-09-04 17:10:27', '2017-09-05 15:29:52', '0');
+INSERT INTO blog.blog_tag (id, name, create_time, last_update_time, status) VALUES ('03fdf47a91fd11e7a1249c5c8e6d8f44', '再试试看', '2017-09-05 13:42:34', '2017-09-05 15:29:57', '0');

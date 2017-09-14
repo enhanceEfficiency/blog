@@ -1,222 +1,108 @@
-drop database if exists seinfeld;
+DROP DATABASE IF EXISTS blog;
 
-create database seinfeld;
+CREATE DATABASE blog;
 
-use seinfeld;
+USE blog;
 
-drop table if exists addon;
+DROP TABLE IF EXISTS blog_article;
 
-drop table if exists addon_manage;
+DROP TABLE IF EXISTS blog_article_tag;
 
-drop table if exists administrator;
+DROP TABLE IF EXISTS blog_category;
 
-drop table if exists article;
+DROP TABLE IF EXISTS blog_comment;
 
-drop table if exists article_manage;
+DROP TABLE IF EXISTS blog_memorabilia;
 
-drop table if exists article_type;
+DROP TABLE IF EXISTS blog_request_record;
 
-drop table if exists article_type_manage;
+DROP TABLE IF EXISTS blog_tag;
 
-drop table if exists comment;
+DROP TABLE IF EXISTS blog_user;
 
-drop table if exists comment_manage;
-
-drop table if exists template;
-
-drop table if exists template_manage;
-
-drop table if exists user;
-
-drop table if exists website_info;
-
-drop table if exists website_info_manage;
-
-create table addon
+CREATE TABLE blog_article
 (
-   addon_id             varchar(100) not null,
-   name                 varchar(20),
-   primary key (addon_id)
+  id               VARCHAR(32)                             NULL,
+  views            INT                                     NULL,
+  digest           TEXT                                    NULL,
+  title            VARCHAR(200)                            NULL,
+  content          TEXT                                    NULL,
+  publish_time     TIMESTAMP DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  user_id          VARCHAR(32)                             NULL,
+  create_time      TIMESTAMP DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  last_update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  status           VARCHAR(1)                              NULL,
+  category_id      VARCHAR(32)                             NULL,
+  picture_url      VARCHAR(200) DEFAULT '/images/timg.jpg' NULL
 );
 
-create table addon_manage
+CREATE TABLE blog_article_tag
 (
-   user_id              varchar(100) not null,
-   addon_id             varchar(100) not null,
-   time                 timestamp,
-   operation_type       varchar(20),
-   primary key (user_id, addon_id)
+  id         VARCHAR(32) NULL,
+  article_id VARCHAR(32) NULL,
+  tag_id     VARCHAR(32) NULL
 );
 
-create table administrator
+CREATE TABLE blog_category
 (
-   user_id              varchar(100) not null,
-   user_account         varchar(20) not null,
-   password             varchar(20),
-   authority            int,
-   point                int,
-   level                int,
-   mobile_number        varchar(20),
-   register_date        timestamp,
-   nickname             varchar(20),
-   avatar_url           text,
-   primary key (user_id)
+  id               VARCHAR(32)                         NULL,
+  name             VARCHAR(20)                         NULL,
+  create_time      TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  last_update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  status           VARCHAR(1)                          NULL
 );
 
-create table article
+CREATE TABLE blog_comment
 (
-   article_id           varchar(100) not null,
-   user_id              varchar(100) not null,
-   article_type_id      varchar(100) not null,
-   title                varchar(200),
-   content              text,
-   publish_time         timestamp,
-   primary key (article_id)
+  id               VARCHAR(32)                         NULL,
+  content          TEXT                                NULL,
+  publish_time     TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  user_id          VARCHAR(32)                         NULL,
+  ip               VARCHAR(32)                         NULL,
+  article_id       VARCHAR(32)                         NULL,
+  floor            INT                                 NULL,
+  create_time      TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  last_update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  status           VARCHAR(1) DEFAULT '0'              NULL
 );
 
-create table article_manage
+CREATE TABLE blog_memorabilia
 (
-   user_id              varchar(100) not null,
-   article_id           varchar(100) not null,
-   time                 timestamp,
-   reason               text,
-   operation_type       varchar(20),
-   primary key (user_id, article_id)
+  id                VARCHAR(32)                         NULL,
+  event_time        DATE                                NULL,
+  event_description TEXT                                NULL,
+  status            VARCHAR(1) DEFAULT '0'              NULL,
+  create_time       TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  update_time       TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+)
+  COMMENT '大事记';
+
+CREATE TABLE blog_request_record
+(
+  id           VARCHAR(32)                         NULL,
+  ip_address   VARCHAR(32)                         NULL,
+  url          VARCHAR(200)                        NULL,
+  request_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
-create table article_type
+CREATE TABLE blog_tag
 (
-   article_type_id      varchar(100) not null,
-   type                 varchar(20),
-   primary key (article_type_id)
+  id               VARCHAR(32)                         NULL,
+  name             VARCHAR(20)                         NULL,
+  create_time      TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  last_update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  status           VARCHAR(1)                          NULL
 );
 
-create table article_type_manage
+CREATE TABLE blog_user
 (
-   user_id              varchar(100) not null,
-   article_type_id      varchar(100) not null,
-   time                 timestamp,
-   operation_type       varchar(20),
-   primary key (user_id, article_type_id)
+  id               VARCHAR(32)                         NOT NULL
+    PRIMARY KEY,
+  username         VARCHAR(32)                         NULL,
+  password         VARCHAR(32)                         NULL,
+  avatar_url       VARCHAR(200)                        NULL,
+  status           VARCHAR(1)                          NULL,
+  create_time      TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  last_update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
-
-create table comment
-(
-   comment_id           varchar(100) not null,
-   article_id           varchar(100) not null,
-   user_id              varchar(100),
-   content              text,
-   publish_time         timestamp,
-   primary key (comment_id)
-);
-
-create table comment_manage
-(
-   user_id              varchar(100) not null,
-   comment_id           varchar(100) not null,
-   time                 timestamp,
-   reason               text,
-   operation_type       varchar(20),
-   primary key (user_id, comment_id)
-);
-
-create table template
-(
-   template_id          varchar(100) not null,
-   name                 varchar(20),
-   url                  text,
-   primary key (template_id)
-);
-
-create table template_manage
-(
-   user_id              varchar(100) not null,
-   template_id          varchar(100) not null,
-   time                 timestamp,
-   operation_type       varchar(20),
-   primary key (user_id, template_id)
-);
-
-create table user
-(
-   user_id              varchar(100) not null,
-   user_account         varchar(20) not null,
-   password             varchar(20),
-   authority            int,
-   point                int,
-   level                int,
-   mobile_number        varchar(20),
-   register_date        timestamp,
-   nickname             varchar(20),
-   avatar_url           text,
-   primary key (user_id)
-);
-
-create table website_info
-(
-   website_info_id      varchar(100) not null,
-   name                 varchar(20),
-   content              text,
-   primary key (website_info_id)
-);
-
-create table website_info_manage
-(
-   user_id              varchar(100) not null,
-   website_info_id      varchar(100) not null,
-   time                 timestamp,
-   operation_type       varchar(20),
-   primary key (user_id, website_info_id)
-);
-
-alter table addon_manage add constraint FK_addon_manage foreign key (user_id)
-      references administrator (user_id) on delete restrict on update restrict;
-
-alter table addon_manage add constraint FK_addon_manage2 foreign key (addon_id)
-      references addon (addon_id) on delete restrict on update restrict;
-
-alter table administrator add constraint FK_Inheritance foreign key (user_id)
-      references user (user_id) on delete restrict on update restrict;
-
-alter table article add constraint FK_categorize foreign key (article_type_id)
-      references article_type (article_type_id) on delete restrict on update restrict;
-
-alter table article add constraint FK_publish foreign key (user_id)
-      references user (user_id) on delete restrict on update restrict;
-
-alter table article_manage add constraint FK_article_manage foreign key (user_id)
-      references administrator (user_id) on delete restrict on update restrict;
-
-alter table article_manage add constraint FK_article_manage2 foreign key (article_id)
-      references article (article_id) on delete restrict on update restrict;
-
-alter table article_type_manage add constraint FK_article_type_manage foreign key (user_id)
-      references administrator (user_id) on delete restrict on update restrict;
-
-alter table article_type_manage add constraint FK_article_type_manage2 foreign key (article_type_id)
-      references article_type (article_type_id) on delete restrict on update restrict;
-
-alter table comment add constraint FK_add foreign key (article_id)
-      references article (article_id) on delete restrict on update restrict;
-
-alter table comment add constraint FK_commit foreign key (user_id)
-      references user (user_id) on delete restrict on update restrict;
-
-alter table comment_manage add constraint FK_comment_manage foreign key (user_id)
-      references administrator (user_id) on delete restrict on update restrict;
-
-alter table comment_manage add constraint FK_comment_manage2 foreign key (comment_id)
-      references comment (comment_id) on delete restrict on update restrict;
-
-alter table template_manage add constraint FK_template_manage foreign key (user_id)
-      references administrator (user_id) on delete restrict on update restrict;
-
-alter table template_manage add constraint FK_template_manage2 foreign key (template_id)
-      references template (template_id) on delete restrict on update restrict;
-
-alter table website_info_manage add constraint FK_website_info_manage foreign key (user_id)
-      references administrator (user_id) on delete restrict on update restrict;
-
-alter table website_info_manage add constraint FK_website_info_manage2 foreign key (website_info_id)
-      references website_info (website_info_id) on delete restrict on update restrict;
 
