@@ -1,5 +1,6 @@
 package cn.gsein.blog.front.service;
 
+import cn.gsein.blog.front.model.ResultInfo;
 import cn.gsein.blog.front.model.User;
 
 /**
@@ -7,4 +8,6 @@ import cn.gsein.blog.front.model.User;
  */
 public interface UserService {
     User findByUsername(String username);
+
+    ResultInfo<Object> saveUser(String username, String password);
 }

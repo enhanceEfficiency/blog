@@ -21,25 +21,31 @@
             if (field.defaultValue == field.value) field.value = '';
             else if (field.value == '') field.value = field.defaultValue;
         }
+
         //展示层
-        function showLayer(id){
-            var layer = $('#'+id),
+        function showLayer(id) {
+            var layer = $('#' + id),
                 layerwrap = layer.find('.hw-layer-wrap');
             layer.fadeIn();
             //屏幕居中
             layerwrap.css({
-                'margin-top': -layerwrap.outerHeight()/2
+                'margin-top': -layerwrap.outerHeight() / 2
             });
         }
 
         //隐藏层
-        function hideLayer(){
+        function hideLayer() {
             $('.hw-overlay').fadeOut();
         }
 
         function login_box() {
             showLayer("hw-layer");
         }
+
+        function register_box() {
+            showLayer("hw-layer2");
+        }
+
         $(function () {
             $("#comment_form").submit(function () {
                     var commentBody = $(".comment_textarea").val();
@@ -66,27 +72,83 @@
                 }
             );
 
+            $("#login_form").submit(function () {
+                var formData = $(this).serialize();
+                console.log(formData);
+                $.ajax({
+                    url: "/login",
+                    data: formData,
+                    type: "post",
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result);
+                        if (result.code === "success") {
+                            location.reload();
+                        } else {
+                            alert(result.message);
+                        }
+                    }
+                });
+                return false;
+            });
 
+            $("#register_form").submit(function () {
+                var $register_form = $("#register_form");
+                var username = $register_form.find("input[name='username']").val();
+                var password = $register_form.find("input[name='password']").val();
+                var confirmPassword = $register_form.find("input[name='confirm_password']").val();
+                if (username.length < 6) {
+                    alert("用户名必须大于等于6个字符！");
+                    return false;
+                }
+                if (password.length < 6) {
+                    alert("密码必须大于等于6个字符！");
+                    return false;
+                }
+                if (password !== confirmPassword){
+                    alert("两次输入密码不一致！");
+                    return false;
+                }
 
-/*            $('.hwLayer-ok,.hwLayer-cancel,.hwLayer-close').on('click', function() {
-                hideLayer();
-            });*/
+                var formData = $(this).serialize();
+                console.log(formData);
+                $.ajax({
+                    url: "/register",
+                    data: formData,
+                    type: "post",
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result);
+                        if (result.code === "success") {
+                            hideLayer();
+                            alert(result.message);
+                        } else {
+                            alert(result.message);
+                        }
+                    }
+                });
+                return false;
+            });
 
-/*            //触发弹出层
-            $('.show-layer').on('click',  function() {
-                var layerid = $(this).data('show-layer');
-                showLayer(layerid);
-            });*/
+            /*            $('.hwLayer-ok,.hwLayer-cancel,.hwLayer-close').on('click', function() {
+                            hideLayer();
+                        });*/
+
+            /*            //触发弹出层
+                        $('.show-layer').on('click',  function() {
+                            var layerid = $(this).data('show-layer');
+                            showLayer(layerid);
+                        });*/
 
             //点击或者触控弹出层外的半透明遮罩层，关闭弹出层
-            $('.hw-overlay').on('click',  function(event) {
-                if (event.target === this){
+            $('.hw-overlay').on('click', function (event) {
+                if (event.target === this) {
                     hideLayer();
                 }
             });
 
             //按ESC键关闭弹出层
-            $(document).keyup(function(event) {
+            $(document).keyup(function (event) {
                 if (event.keyCode === 27) {
                     hideLayer();
                 }
@@ -134,7 +196,7 @@
             <div>
                 <form id="comment_form">
                     <input type="hidden" name="id" th:value="${article.id}"/>
-                    <p>
+                    <p th:if="${#session.getAttribute('user')} == null">
                         您可以
                         <a href="javascript:void(0);" onclick="login_box();">[登录]</a>
                         或者
@@ -181,25 +243,55 @@
 
 <div class="hw-overlay" id="hw-layer">
     <div class="hw-layer-wrap">
-        <div id="login_box">
+        <div id="login_box" class="cbox_fw">
             <h3>这里可以登录哦~</h3>
 
-            <form action="#" method="post">
+            <form id="login_form">
 
-                <label>用户名</label><input name="username" type="text" class="txt_field" id="name" title="name"
-                                         value="" size="10" maxlength="30"/>
-                <div class="cleaner h10"></div>
-                <label>密码</label><input name="password" type="password" class="txt_field" id="password"
-                                        title="password" value="" size="10" maxlength="30"/>
-                <div class="cleaner h10"></div>
-                <input type="submit" name="login" value="" alt="login" id="login" title="Search" class="sub_btn"/>
+                <input name="username" type="text" class="txt_field h45 w210" id="name" title="name"
+                       value="" size="10" maxlength="30" placeholder="这里输入用户名"/>
+                <div class="cleaner h30"></div>
+                <input name="password" type="password" class="txt_field h45 w210" id="password"
+                       title="password" value="" size="10" maxlength="30" placeholder="这里输入密码"/>
+                <div class="cleaner h30"></div>
+                <input type="submit" name="login" value="登录" alt="login" id="login" title="Search" class="mybtn w220"/>
 
-                <div><a href="#">注册一下吧</a></div>
+                <!--<div><a href="#">注册一下吧</a></div>-->
+
+            </form>
+        </div>
+        <div id="third_party_login">
+            <span>第三方账号登录</span>
+            <a>QQ</a>
+            <a>weixin</a>
+            <a>其他</a>
+        </div>
+    </div>
+</div>
+
+<div class="hw-overlay" id="hw-layer2">
+    <div class="hw-layer-wrap">
+        <div id="register_box" class="cbox_fw">
+            <h3>这里可以注册哦~</h3>
+
+            <form id="register_form">
+
+                <input name="username" type="text" class="txt_field h45 w210" title="name"
+                       value="" size="10" maxlength="30" placeholder="这里输入用户名"/>
+                <div class="cleaner h30"></div>
+                <input name="password" type="password" class="txt_field h45 w210"
+                       title="password" value="" size="10" maxlength="30" placeholder="这里输入密码"/>
+                <div class="cleaner h30"></div>
+                <input name="confirm_password" type="password" class="txt_field h45 w210"
+                       title="password" value="" size="10" maxlength="30" placeholder="这里确认密码"/>
+                <div class="cleaner h30"></div>
+                <input type="submit" name="login" value="注册" alt="login" title="Search" class="mybtn w220"/>
+
+                <!--<div><a href="#">注册一下吧</a></div>-->
 
             </form>
         </div>
     </div>
 </div>
-
 </body>
 </html>

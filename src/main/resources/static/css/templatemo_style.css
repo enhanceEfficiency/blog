@@ -135,12 +135,24 @@ h6 {
     height: 40px
 }
 
+.h45 {
+    height: 45px;
+}
+
 .h50 {
     height: 50px
 }
 
 .h60 {
     height: 60px
+}
+
+.w210 {
+    width: 210px !important;
+}
+
+.w220 {
+    width: 220px !important;
 }
 
 .float_l {
@@ -493,20 +505,13 @@ ul.photo_gallery .rmp {
     color: #62260e;
 }
 
-#member_login .txt_field {
-    float: right;
-    display: block;
-    height: 29px;
-    width: 132px;
+.txt_field {
     color: #000;
-    font-size: 12px;
+    font-size: 15px;
     padding: 0 5px;
-    font-variant: normal;
-    line-height: normal;
-    background: none;
+    border-radius: 5px;
     border: none;
-    line-height: 30px;
-    background: url(/images/templatemo_txtfield.png) no-repeat
+    background-color: #FFEEC0;
 }
 
 #member_login .sub_btn {
@@ -653,10 +658,20 @@ ul.photo_gallery .rmp {
     color: #8e7555;
 }
 
-#login_box {
-    margin: 90px 45px 90px 45px;
+#login_box, #register_box {
+    margin: 90px 30px 10px 30px;
+    text-align: center;
     /*background-color: white;*/
     /*display:none;*/
+}
+
+#third_party_login{
+    margin: 0 30px;
+}
+
+#third_party_login span{
+    display: block;
+    width: 240px;
 }
 
 .hw-overlay {
@@ -681,6 +696,6 @@ ul.photo_gallery .rmp {
     margin-top: -300px;
     border-radius: 3px;
     background-image: url("/images/login_bg.png");
-   /* box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.12);*/
+    /* box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.12);*/
     padding: 45px 50px;
 }

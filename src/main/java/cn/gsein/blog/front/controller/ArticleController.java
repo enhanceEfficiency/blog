@@ -28,4 +28,6 @@ public class ArticleController {
         //model.addAttribute("commentList", articleService.getAllCommentsOfArticle(id));
         return articleService.saveComment(ip, id, username, commentBody);
     }
+
+
 }
