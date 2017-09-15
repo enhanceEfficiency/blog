@@ -4,7 +4,6 @@ import cn.gsein.blog.front.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -43,10 +42,10 @@ public class UserMapperTest {
 
     @Test
     public void update() {
-        User user = userMapper.findById("7a7b31e78c8611e782129c5c8e6d8f44");
+        /*User user = userMapper.findById("7a7b31e78c8611e782129c5c8e6d8f44");
         user.setPassword(new Md5PasswordEncoder().encodePassword("123456", null));
         int result = userMapper.update(user);
-        System.out.println(result);
+        System.out.println(result);*/
     }
 
     @Test

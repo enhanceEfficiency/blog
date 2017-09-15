@@ -43,7 +43,7 @@ public class PageController {
         model.addAttribute("latestTranslatorArticle", articleMapper.findLatestArticleByCategoryId("b10f49dd937811e7b36e9c5c8e6d8f44"));
         model.addAttribute("memorabiliaList", memorabiliaMapper.findFirstSome(6));
         model.addAttribute("visitTimes", requestRecordMapper.findRecordCount());
-        return "index";
+        return "/index";
     }
 
     @RequestMapping("/articleList/{categoryId}")
@@ -51,11 +51,12 @@ public class PageController {
         model.addAttribute("articleList", articleMapper.findByCategoryId(categoryId));
         model.addAttribute("memorabiliaList", memorabiliaMapper.findFirstSome(6));
         model.addAttribute("visitTimes", requestRecordMapper.findRecordCount());
-        return "articleList";
+        return "/articleList";
     }
 
     @RequestMapping("/article/{id}")
     public String article(@PathVariable String id, Model model, HttpServletRequest request) {
+        long start = System.currentTimeMillis();
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if(user == null){
@@ -65,10 +66,20 @@ public class PageController {
         } else{
             model.addAttribute("username", user.getUsername());
         }
+        long time1 = System.currentTimeMillis();
         model.addAttribute("article", articleMapper.findById(id)); // 所有文章
+        long time2 = System.currentTimeMillis();
         model.addAttribute("memorabiliaList", memorabiliaMapper.findFirstSome(6));
+        long time3 = System.currentTimeMillis();
         model.addAttribute("visitTimes", requestRecordMapper.findRecordCount());
+        long time4 = System.currentTimeMillis();
         model.addAttribute("commentList", commentMapper.findByArticleId(id));
-        return "article";
+        long end = System.currentTimeMillis();
+        System.out.println("time1:"+(time1-start));
+        System.out.println(time2-start);
+        System.out.println(time3-start);
+        System.out.println(time4-start);
+        System.out.println(end-start);
+        return "/article";
     }
 }

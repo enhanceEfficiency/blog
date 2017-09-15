@@ -28,11 +28,14 @@ public class LoginAndRegisterController {
     @RequestMapping("/login")
     @ResponseBody
     public ResultInfo<Object> login(String username, String password, HttpSession session) {
+        //System.out.println(username);
         User user = userService.findByUsername(username);
         if (user == null) {
             return ResultInfoFactory.getErrorResultInfo("用户名或密码错误");
         }
         String queriedPassword = user.getPassword();
+        //System.out.println(password);
+        //System.out.println(queriedPassword);
         if (password != null && EncryptUtil.md5(password).equals(queriedPassword)) {
             session.setAttribute("user", user);
             return ResultInfoFactory.getSuccessResultInfo("登录成功！", null);

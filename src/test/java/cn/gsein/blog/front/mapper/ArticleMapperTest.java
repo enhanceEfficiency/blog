@@ -55,10 +55,10 @@ public class ArticleMapperTest {
 
     @Test
     public void update() {
-        Article article = articleMapper.findById("18b54e378c9611e782129c5c8e6d8f44");
+        /*Article article = articleMapper.findById("18b54e378c9611e782129c5c8e6d8f44");
         article.setTitle("其实这并不是一条神奇的天路");
         int result = articleMapper.update(article);
-        System.out.println(result);
+        System.out.println(result);*/
     }
 
     @Test

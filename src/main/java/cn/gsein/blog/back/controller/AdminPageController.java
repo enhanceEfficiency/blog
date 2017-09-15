@@ -30,7 +30,7 @@ public class AdminPageController {
 
     @RequestMapping("/login")
     public String toLogin() {
-        return "admin/login";
+        return "/admin/login";
     }
 
     @RequestMapping("/article/list")
@@ -41,7 +41,7 @@ public class AdminPageController {
         model.addAttribute("user", user);
         model.addAttribute("tagList", tagList);
         model.addAttribute("categoryList", categoryList);
-        return "admin/article/articleList";
+        return "/admin/article/articleList";
     }
 
     @RequestMapping("/article/addPage")
@@ -53,7 +53,7 @@ public class AdminPageController {
     public String toEditArticlePage(Model model, String id) {
         Article article = adminArticleService.loadArticle(id);
         model.addAttribute("article", article);
-        return "admin/article/articleEdit";
+        return "/admin/article/articleEdit";
     }
 
     @RequestMapping("/tag/list")
@@ -62,7 +62,7 @@ public class AdminPageController {
         List<Tag> tagList = adminArticleService.loadAllTags();
         model.addAttribute("user", user);
         model.addAttribute("tagList", tagList);
-        return "admin/label/labelList";
+        return "/admin/label/labelList";
     }
 
     @RequestMapping("/category/list")
@@ -71,7 +71,7 @@ public class AdminPageController {
         List<Category> categoryList = adminArticleService.loadAllCategories();
         model.addAttribute("user", user);
         model.addAttribute("categoryList", categoryList);
-        return "admin/category/categoryList";
+        return "/admin/category/categoryList";
     }
 
     @RequestMapping("/category/addPage")
@@ -83,6 +83,6 @@ public class AdminPageController {
     public String toEditCategoryPage(@PathVariable String id, Model model){
         Category category = adminCategoryService.loadCategory(id);
         model.addAttribute("category", category);
-        return "admin/category/categoryEdit";
+        return "/admin/category/categoryEdit";
     }
 }
