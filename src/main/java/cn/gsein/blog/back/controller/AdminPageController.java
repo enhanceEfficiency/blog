@@ -46,7 +46,7 @@ public class AdminPageController {
 
     @RequestMapping("/article/addPage")
     public String toAddArticlePage() {
-        return "admin/article/articleAdd";
+        return "/admin/article/articleAdd";
     }
 
     @RequestMapping("/article/edit")
@@ -76,7 +76,7 @@ public class AdminPageController {
 
     @RequestMapping("/category/addPage")
     public String toAddCategoryPage(){
-        return "admin/category/categoryAdd";
+        return "/admin/category/categoryAdd";
     }
 
     @RequestMapping("/category/editPage/{id}")

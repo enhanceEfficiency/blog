@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh">
-<head th:replace="~{admin/partial/head :: head}"></head>
+<head th:replace="~{/admin/partial/head :: head}"></head>
 
 <body>
 <div id="wrapper">
-    <nav class="navbar-default navbar-static-side" role="navigation" th:insert="~{admin/partial/sidebar :: sidebar}">
+    <nav class="navbar-default navbar-static-side" role="navigation" th:insert="~{/admin/partial/sidebar :: sidebar}">
     </nav>
     <div id="page-wrapper" class="gray-bg dashbard-1">
         <div class="row wrapper border-bottom white-bg page-heading">
@@ -82,7 +82,7 @@
 
     </div>
     <!--添加footer-->
-    <div class="footer fixed" th:insert="~{admin/partial/footer :: copyright}">
+    <div class="footer fixed" th:insert="~{/admin/partial/footer :: copyright}">
 
     </div>
 
@@ -109,9 +109,9 @@
 </div>
 
 <!-- 修改用户信息 -->
-<div class="modal inmodal" id="addArticleModal" tabindex="-1" role="dialog" aria-hidden="true" th:replace="admin/partial/module-userinfo :: update-modal"></div>
+<div class="modal inmodal" id="addArticleModal" tabindex="-1" role="dialog" aria-hidden="true" th:replace="/admin/partial/module-userinfo :: update-modal"></div>
 
-<div class="container" id="crop-avatar" th:replace="~{admin/partial/avatar :: avatar}"></div>
+<div class="container" id="crop-avatar" th:replace="~{/admin/partial/avatar :: avatar}"></div>
 
 
 

@@ -56,30 +56,19 @@ public class PageController {
 
     @RequestMapping("/article/{id}")
     public String article(@PathVariable String id, Model model, HttpServletRequest request) {
-        long start = System.currentTimeMillis();
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if(user == null){
             String ip = RequestInfoUtil.getRemoteHost(request);
-            String city = IpUtil.getCityByIp(ip);
-            model.addAttribute("username", city + "匿名网友");
+            /*String city = IpUtil.getCityByIp(ip);*/
+            model.addAttribute("username", "匿名网友"+ip);
         } else{
             model.addAttribute("username", user.getUsername());
         }
-        long time1 = System.currentTimeMillis();
         model.addAttribute("article", articleMapper.findById(id)); // 所有文章
-        long time2 = System.currentTimeMillis();
         model.addAttribute("memorabiliaList", memorabiliaMapper.findFirstSome(6));
-        long time3 = System.currentTimeMillis();
         model.addAttribute("visitTimes", requestRecordMapper.findRecordCount());
-        long time4 = System.currentTimeMillis();
         model.addAttribute("commentList", commentMapper.findByArticleId(id));
-        long end = System.currentTimeMillis();
-        System.out.println("time1:"+(time1-start));
-        System.out.println(time2-start);
-        System.out.println(time3-start);
-        System.out.println(time4-start);
-        System.out.println(end-start);
         return "/article";
     }
 }
