@@ -42,8 +42,8 @@
         <selectKey keyProperty="id" resultType="String" order="BEFORE">
             select replace(uuid(),'-','') from dual
         </selectKey>
-        INSERT INTO blog_article (id, category_id, views, title, content, user_id, status, picture_url, digest)
-        VALUES (#{id}, #{category.id}, 0, #{title}, #{content}, #{author.id}, '0', #{pictureUrl}, #{digest})
+        INSERT INTO blog_article (id, category_id, views, title, content, user_id, status, digest)
+        VALUES (#{id}, #{category.id}, 0, #{title}, #{content}, #{author.id}, '0', #{digest})
     </insert>
 
     <update id="delete" parameterType="article">

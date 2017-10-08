@@ -4,6 +4,7 @@ import cn.gsein.blog.front.mapper.ArticleMapper;
 import cn.gsein.blog.front.mapper.CommentMapper;
 import cn.gsein.blog.front.mapper.MemorabiliaMapper;
 import cn.gsein.blog.front.mapper.RequestRecordMapper;
+import cn.gsein.blog.front.model.Article;
 import cn.gsein.blog.front.model.User;
 import cn.gsein.blog.front.util.IpUtil;
 import cn.gsein.blog.front.util.RequestInfoUtil;
@@ -58,17 +59,27 @@ public class PageController {
     public String article(@PathVariable String id, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if(user == null){
+        if (user == null) {
             String ip = RequestInfoUtil.getRemoteHost(request);
             /*String city = IpUtil.getCityByIp(ip);*/
-            model.addAttribute("username", "匿名网友"+ip);
-        } else{
+            model.addAttribute("username", "匿名网友" + ip);
+        } else {
             model.addAttribute("username", user.getUsername());
         }
+        updateViews(id);
         model.addAttribute("article", articleMapper.findById(id)); // 所有文章
         model.addAttribute("memorabiliaList", memorabiliaMapper.findFirstSome(6));
         model.addAttribute("visitTimes", requestRecordMapper.findRecordCount());
         model.addAttribute("commentList", commentMapper.findByArticleId(id));
         return "/article";
+    }
+
+    /**
+     * 更新文章浏览量
+     */
+    private void updateViews(String id) {
+        Article article = articleMapper.findById(id);
+        article.setViews(article.getViews() == null ? 1 : article.getViews() + 1);
+        articleMapper.update(article);
     }
 }
